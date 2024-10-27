@@ -62,14 +62,23 @@ body {
 }
 
 .caixa-titulo {
-    font-size: 20px;
+    font-size: 20px; /* Tamanho da fonte para os títulos das caixas */
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 .numero {
-    font-size: 36px; /* Aumentando o tamanho da fonte dos números */
+    font-size: 20px; /* Tamanho da fonte para os números (ajustado para corresponder ao tipo de senha) */
     font-weight: bold; /* Negrito para os números */
+}
+
+#tipoSenha, #senhaGerada {
+    font-size: 20px; /* Tamanho igual para tipo de senha e senha gerada */
+    font-weight: bold; /* Negrito para manter a consistência */
+}
+
+#nomeCliente {
+    font-size: 16px; /* Tamanho normal para o nome do cliente */
 }
 
 /* Estilo do Vídeo */
@@ -158,7 +167,7 @@ video {
 
 .campo-caixa-usuario {
     color: #000; /* Define a cor do texto dentro da caixa do usuário */
-    font-size: 30px; /* Ajusta o tamanho do texto */
+    font-size: 20px; /* Ajusta o tamanho do texto para corresponder ao tipo de senha */
     padding: 10px; /* Ajusta o padding para manter a caixa uniforme */
 }
 
