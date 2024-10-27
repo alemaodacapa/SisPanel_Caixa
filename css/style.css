@@ -1,139 +1,168 @@
-.barraSuperior {
-    height: 200px;
-    margin-top: 10px;
-    background-color: #003a5f; /* Atualizando a cor de fundo */
-}
-
-.senhaAtual {
-    text-align: center;
-    background-color: #003a5f; /* Cor de fundo */
-    color: white; /* Cor do texto */
-    margin-top: 0px;
-    padding: 10px; /* Adicionando padding para espaÃ§amento interno */
-}
-
-.senhaAtualTexto {
-    font-size: 65pt;
-    font-weight: 400;
-}
-
-#senhaAtualNumero {
-    font-size: 100pt;
-    font-weight: 400;
-}
-
-.ultimaSenha {
-    font-weight: 400;
-    text-align: center;
-    background-color: #f2f2f2; /* Cor de fundo atualizada para melhor contraste */
-    height: 130px;
-    margin-top: 20px;
-    padding: 10px; /* Adicionando padding para espaÃ§amento interno */
-}
-
-#ultimaSenhaTexto {
-    font-size: 20px;
-    color: #a50; /* Cor do texto */
-}
-
-#ultimaSenhaNumero {
-    font-size: 40px;
-    color: black; /* Cor do nÃºmero */
-}
-
-.uespiLogo {
-    width: 80px; /* Ajuste o valor conforme necessário */
-    height: auto; /* Mantém a proporção original */
-}
-
-.sisuLogo {
-    max-width: 400px;
-}
-
-.uespiTexto {
-    font-size: 27pt;
-    font-weight: 400;
-    color: #003a5f; /* Cor do texto */
-}
-
-.subtitulo {
-    font-size: 30px;
-    font-weight: 400;
-}
-
-audio {
-    display: none;
-}
-/* Estilos gerais para o site */
+/* Geral */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5; /* Cor de fundo semelhante ao Facebook */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
-/* Estilo para dispositivos de tela grande (desktops) */
-@media (min-width: 992px) {
-    .container {
-        width: 960px;
-        margin: 0 auto;
+.barraSuperior {
+    background-color: #1877f2; /* Azul do Facebook */
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 24px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Container Principal */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Alinha ao centro */
+    padding: 20px;
+    flex: 1; /* Permite que o container ocupe o espaço restante */
+    overflow: auto; /* Adiciona rolagem se necessário */
+}
+
+/* Estilo das Caixas */
+.caixa {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    flex: 1 1 calc(30% - 40px); /* Tamanho flexível */
+    min-width: 300px; /* Largura mínima */
+    max-width: 400px; /* Largura máxima */
+    text-align: center;
+    opacity: 0; /* Começa invisível */
+    transform: translateY(20px); /* Deslocamento inicial */
+    animation: fadeInUp 0.5s forwards; /* Animação de entrada */
+    transition: transform 0.3s; /* Transição ao passar o mouse */
+}
+
+/* Efeito de hover para aumentar a caixa */
+.caixa:hover {
+    transform: scale(1.05); /* Aumenta o tamanho ao passar o mouse */
+}
+
+/* Animação de entrada */
+@keyframes fadeInUp {
+    to {
+        opacity: 1; /* Torna visível */
+        transform: translateY(0); /* Move para a posição original */
     }
-    .header {
+}
+
+.caixa-titulo {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.numero {
+    font-size: 36px; /* Aumentando o tamanho da fonte dos números */
+    font-weight: bold; /* Negrito para os números */
+}
+
+/* Estilo do Vídeo */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 200px; /* Altura do vídeo */
+    overflow: hidden;
+    margin-top: 20px; /* Espaço acima do vídeo */
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Preenche o container */
+}
+
+/* Estilo do Narrador */
+.narrador-box {
+    background-color: #6f42c1;
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Rodapé */
+.footer {
+    background-color: #1877f2; /* Azul do Facebook */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: relative;
+}
+
+/* Design responsivo */
+@media (max-width: 768px) {
+    .campo-caixa {
+        font-size: 26px;
+        padding: 20px;
+    }
+
+    .campo-caixa-usuario {
         font-size: 24px;
     }
 }
 
-/* Estilo para dispositivos de tela média (tablets) */
-@media (min-width: 768px) and (max-width: 991px) {
-    .container {
-        width: 720px;
-        margin: 0 auto;
+@media (min-width: 769px) {
+    .campo-caixa {
+        font-size: 36px;
+        padding: 35px;
     }
-    .header {
-        font-size: 20px;
-    }
-}
 
-/* Estilo para dispositivos de tela pequena (celulares) */
-@media (max-width: 400px) {
-    .container {
-        width: 100%;
-        padding: 0 10px;
-    }
-    .header {
-        font-size: 22px;
+    .campo-caixa-usuario {
+        font-size: 30px; /* Mantém o tamanho do texto no desktop */
     }
 }
 
-/* Exemplo de layout flexível */
-.flex-container {
-    display: flex;
-    flex-wrap: wrap;
+/* Estilo dos Botões */
+.anuncio-content button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
 }
 
-.flex-item {
-    flex: 1;
-    padding: 10px;
-}
-.caixa-normal,
-.caixa-anterior {
-    font-size: 22px; /* Reduz o tamanho do texto */
-    padding: 10px; /* Ajusta o espaçamento interno */
-    width: 80%; /* Ajusta a largura da caixa */
-    margin: 5px auto; /* Ajusta o espaçamento e centraliza */
-}
-#tipoSenha,
-#senhaAnterior {
-    font-size: 22px; /* Reduz ainda mais o tamanho do texto se necessário */
-}
-.caixa-normal strong,
-.caixa-anterior strong,
-.campo-caixa strong,
-#tipoSenha,
-#senhaAnterior,
-#nomeCliente {
-    font-size: 22px; /* Reduz o tamanho da fonte em 80% do tamanho padrão */
+.anuncio-content button:hover {
+    background-color: #c82333;
 }
 
-#senhaGerada {
-    font-size: 33px; /* Ajusta o tamanho da senha gerada para um valor específico */
+/* CSS para Responsividade das Caixas */
+.campo-caixa {
+    background-color: #007bff; /* Mantém a cor azul */
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 30px; /* Ajuste o tamanho da fonte para mobile */
+    text-align: center;
+    color: white;
+    margin-bottom: 20px; /* Espaçamento entre as caixas */
+    overflow: hidden;
+}
+
+.campo-caixa-usuario {
+    color: #000; /* Define a cor do texto dentro da caixa do usuário */
+    font-size: 30px; /* Ajusta o tamanho do texto */
+    padding: 10px; /* Ajusta o padding para manter a caixa uniforme */
+}
+
+/* Áudio de chamada */
+.audio {
+    display: none; /* Esconder áudio */
 }
