@@ -72,7 +72,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Atendimento - Senhas</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
-    <style>
+<style>
         body {
             margin: 0;
             font-family: 'Inter', sans-serif;
@@ -118,6 +118,15 @@ $conn->close();
             opacity: 0; /* Começa invisível */
             transform: translateY(20px); /* Deslocamento inicial */
             animation: fadeInUp 0.5s forwards; /* Animação de entrada */
+            transition: transform 0.3s; /* Transição ao passar o mouse */
+        }
+
+        /* Efeito de hover para aumentar a caixa */
+        .caixa:hover {
+            transform: scale(1.05); /* Aumenta o tamanho ao passar o mouse */
+        }
+                .campo-caixa:hover {
+            transform: scale(1.05); /* Aumenta o tamanho ao passar o mouse */
         }
 
         /* Animação de entrada */
@@ -152,6 +161,67 @@ $conn->close();
             height: 100%;
             object-fit: cover; /* Preenche o container */
         }
+        .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .col-xs-6 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        /* Design responsivo */
+        @media (max-width: 768px) {
+            .campo-caixa {
+                font-size: 26px;
+                padding: 20px;
+            }
+
+            .campo-caixa-usuario {
+                font-size: 24px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .campo-caixa {
+                font-size: 36px;
+                padding: 35px;
+        }
+                .anuncio-content button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .anuncio-content button:hover {
+            background-color: #c82333;
+        }
+
+        /* Caixa de Narrador */
+        .narrador-box {
+            background-color: #6f42c1;
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+                .info-link {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 10px;
+            font-size: 16px;
+        }
+
+        .info-link i {
+            margin-right: 5px;
+            font-size: 20px;
+            color: #007bff;
+        }
+        
 
         .footer {
             background-color: #1877f2; /* Azul do Facebook */
@@ -159,6 +229,7 @@ $conn->close();
             text-align: center;
             padding: 10px;
             width: 100%;
+            position: relative;
         }
 
         /* Para garantir que o footer fique no final da página */
@@ -169,6 +240,41 @@ $conn->close();
             flex: 0 0 auto;
         }
     </style>
+    <script>
+        // Função para tocar o áudio
+        function tocarAudio() {
+            const audio = document.getElementById('audioChamada');
+            audio.play();
+        }
+
+        // Função para narrar texto
+        function narrarTexto(texto) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(texto);
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('Navegador não suporta síntese de fala.');
+            }
+        }
+
+        // Função para narrar o nome do cliente e a senha gerada ao carregar a página
+        function narrarInformacoes() {
+            const nomeCliente = document.getElementById('nomeCliente').textContent;
+            const senhaGerada = document.getElementById('senhaGerada').textContent;
+            narrarTexto(`Senha gerada para ${nomeCliente} é ${senhaGerada}`);
+        }
+
+        // Executa as funções quando a página é carregada
+        window.onload = function() {
+            tocarAudio(); // Toca o áudio
+            narrarInformacoes();
+            
+            // Atualiza a página a cada 25 segundos
+            setInterval(function() {
+                location.reload();
+            }, 25000); // 25000 milissegundos = 25 segundos
+        };
+    </script>
 </head>
 <body>
 
@@ -190,6 +296,7 @@ $conn->close();
             <div id="nomeCliente"><strong><?php echo $cliente['nome']; ?></strong></div>
             <div id="senhaGerada" class="numero"><strong><?php echo $cliente['senha_gerada']; ?></strong></div>
         </div>
+        
         <div class="caixa">
             <div class="caixa-titulo">ANÚNCIO</div>
             <div class="video-container">
@@ -198,9 +305,101 @@ $conn->close();
                     Seu navegador não suporta vídeo HTML5.
                 </video>
             </div>
-            <a href="https://painelsummerside.com.br" style="color: #1877f2;">Visitar o Site</a>
+            <a href="https://painelsummerside.com.br" class="botao-visitar" style="color: blue">Visitar o Site</a>
         </div>
     </div>
+<!-- CSS para Responsividade -->
+<style>
+    .campo-caixa {
+        background-color: #007bff; /* Mantém a cor azul */
+        border-radius: 5px;
+        padding: 15px;
+        font-size: 30px; /* Ajuste o tamanho da fonte para mobile */
+        text-align: center;
+        color: white;
+        margin-bottom: 20px; /* Espaçamento entre as caixas */
+        overflow: hidden;
+    }
+
+    .campo-caixa-usuario {
+        color: #000; /* Define a cor do texto dentro da caixa do usuário */
+        font-size: 30px; /* Ajusta o tamanho do texto */
+        padding: 10px; /* Ajusta o padding para manter a caixa uniforme */
+    }
+
+    @media (min-width: 992px) { /* Para desktop */
+        .campo-caixa {
+            font-size: 40px; /* Tamanho maior para desktop */
+            padding: 20px; /* Padding maior para desktop */
+        }
+        
+        .campo-caixa-usuario {
+            font-size: 30px; /* Mantém o tamanho do texto no desktop */
+        }
+    }
+</style>
+    <!-- Áudio de chamada -->
+    <audio id="audioChamada" src="audio/chamada.wav"></audio>
+
+    <!-- JavaScript -->
+    <script>
+        // Função para fechar o anúncio desktop
+        $('#fecharAnuncioDesktop').click(function() {
+            $('#anuncioDesktop').fadeOut();
+        });
+
+        // Função para tocar o áudio de chamada
+        function tocarAudio() {
+            const audio = document.getElementById('audioChamada');
+            audio.currentTime = 0; // Reinicia o áudio para garantir que toque do início
+            audio.play().catch((error) => {
+                console.error('Erro ao tentar tocar áudio:', error);
+            });
+        }
+
+        // Função para buscar os dados do cliente
+        function buscarDadosCliente() {
+            $.ajax({
+                url: 'consultar_cliente.php', // Endpoint que retorna os dados do cliente
+                method: 'GET',
+                success: function(data) {
+                    const cliente = JSON.parse(data);
+                    document.getElementById('nomeCliente').textContent = cliente.nome;
+                    document.getElementById('senhaGerada').textContent = cliente.senha_gerada;
+                    document.getElementById('tipoSenha').textContent = cliente.tipo_senha;
+                    document.getElementById('senhaAnterior').textContent = cliente.senha_anterior;
+
+                    // Tocar áudio se uma nova senha foi gerada
+                    if (cliente.senha_gerada !== document.getElementById('senhaGerada').textContent) {
+                        tocarAudio();
+                    }
+                },
+                error: function(error) {
+                    console.error('Erro ao buscar dados do cliente:', error);
+                }
+            });
+        }
+
+        // Atualiza os dados a cada 1 segundo
+        setInterval(buscarDadosCliente, 1000);
+
+        // Toca o áudio na primeira visita ao site
+        document.addEventListener('DOMContentLoaded', function() {
+            tocarAudio(); // Toca o áudio assim que o conteúdo é carregado
+        });
+
+        $(document).ready(function() {
+            // Mostrar o anúncio móvel após 10 segundos
+            setTimeout(function() {
+                $('#anuncioMobile').fadeIn();
+            }, 10000);
+
+            // Função para fechar o anúncio móvel
+            $('#fecharAnuncio').click(function() {
+                $('#anuncioMobile').fadeOut();
+            });
+        });
+    </script>
 
     <footer class="footer">
         <p>© Sis Panel - Todos os direitos reservados</p>
