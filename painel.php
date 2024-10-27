@@ -72,174 +72,182 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Atendimento - Senhas</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 <style>
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5; /* Cor de fundo semelhante ao Facebook */
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background-color: #f0f2f5; /* Cor de fundo semelhante ao Facebook */
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
 
-        .barraSuperior {
-            background-color: #1877f2; /* Azul do Facebook */
-            color: white;
-            padding: 10px;
-            text-align: center;
-            font-size: 24px;
-            position: relative;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .barraSuperior {
+        background-color: #1877f2; /* Azul do Facebook */
+        color: white;
+        padding: 10px;
+        text-align: center;
+        font-size: 20px; /* Aumentado para 20px */
+        position: relative;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* Alinha ao centro */
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* Alinha ao centro */
+        padding: 20px;
+        flex: 1; /* Permite que o container ocupe o espaço restante */
+        overflow: auto; /* Adiciona rolagem se necessário */
+    }
+
+    .caixa {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        padding: 20px;
+        flex: 1 1 calc(30% - 40px); /* Tamanho flexível */
+        min-width: 300px; /* Largura mínima */
+        max-width: 400px; /* Largura máxima */
+        text-align: center;
+        opacity: 0; /* Começa invisível */
+        transform: translateY(20px); /* Deslocamento inicial */
+        animation: fadeInUp 0.5s forwards; /* Animação de entrada */
+        transition: transform 0.3s; /* Transição ao passar o mouse */
+    }
+
+    /* Efeito de hover para aumentar a caixa */
+    .caixa:hover {
+        transform: scale(1.05); /* Aumenta o tamanho ao passar o mouse */
+    }
+
+    .campo-caixa:hover {
+        transform: scale(1.05); /* Aumenta o tamanho ao passar o mouse */
+    }
+
+    /* Animação de entrada */
+    @keyframes fadeInUp {
+        to {
+            opacity: 1; /* Torna visível */
+            transform: translateY(0); /* Move para a posição original */
+        }
+    }
+
+    .caixa-titulo {
+        font-size: 24px; /* Aumentado para 24px */
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .numero {
+        font-size: 40px; /* Aumentado para 40px */
+        font-weight: bold; /* Negrito para os números */
+    }
+
+    .video-container {
+        position: relative;
+        width: 100%;
+        height: 200px; /* Altura do vídeo */
+        overflow: hidden;
+        margin-top: 20px; /* Espaço acima do vídeo */
+    }
+
+    video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Preenche o container */
+    }
+
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .col-xs-6 {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Design responsivo */
+    @media (max-width: 768px) {
+        .campo-caixa {
+            font-size: 28px; /* Aumentado para 28px */
             padding: 20px;
-            flex: 1; /* Permite que o container ocupe o espaço restante */
-            overflow: auto; /* Adiciona rolagem se necessário */
         }
 
-        .caixa {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin: 10px;
-            padding: 20px;
-            flex: 1 1 calc(30% - 40px); /* Tamanho flexível */
-            min-width: 300px; /* Largura mínima */
-            max-width: 400px; /* Largura máxima */
-            text-align: center;
-            opacity: 0; /* Começa invisível */
-            transform: translateY(20px); /* Deslocamento inicial */
-            animation: fadeInUp 0.5s forwards; /* Animação de entrada */
-            transition: transform 0.3s; /* Transição ao passar o mouse */
+        .campo-caixa-usuario {
+            font-size: 26px; /* Aumentado para 26px */
         }
+    }
 
-        /* Efeito de hover para aumentar a caixa */
-        .caixa:hover {
-            transform: scale(1.05); /* Aumenta o tamanho ao passar o mouse */
+    @media (min-width: 769px) {
+        .campo-caixa {
+            font-size: 38px; /* Aumentado para 38px */
+            padding: 35px;
         }
-                .campo-caixa:hover {
-            transform: scale(1.05); /* Aumenta o tamanho ao passar o mouse */
-        }
+    }
 
-        /* Animação de entrada */
-        @keyframes fadeInUp {
-            to {
-                opacity: 1; /* Torna visível */
-                transform: translateY(0); /* Move para a posição original */
-            }
-        }
+    /* Estilo dos Botões */
+    .anuncio-content button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
 
-        .caixa-titulo {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+    .anuncio-content button:hover {
+        background-color: #c82333;
+    }
 
-        .numero {
-            font-size: 36px; /* Aumentando o tamanho da fonte dos números */
-            font-weight: bold; /* Negrito para os números */
-        }
+    /* Caixa de Narrador */
+    .narrador-box {
+        background-color: #6f42c1;
+        color: white;
+        padding: 15px;
+        border-radius: 15px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 200px; /* Altura do vídeo */
-            overflow: hidden;
-            margin-top: 20px; /* Espaço acima do vídeo */
-        }
+    .info-link {
+        display: inline-flex;
+        align-items: center;
+        margin-left: 10px;
+        font-size: 18px; /* Aumentado para 18px */
+    }
 
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Preenche o container */
-        }
-        .row {
-            margin-left: 0;
-            margin-right: 0;
-        }
-        .col-xs-6 {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
+    .info-link i {
+        margin-right: 5px;
+        font-size: 22px; /* Aumentado para 22px */
+        color: #007bff;
+    }
 
-        /* Design responsivo */
-        @media (max-width: 768px) {
-            .campo-caixa {
-                font-size: 26px;
-                padding: 20px;
-            }
+    .footer {
+        background-color: #1877f2; /* Azul do Facebook */
+        color: white;
+        text-align: center;
+        padding: 10px;
+        width: 100%;
+        position: relative;
+    }
 
-            .campo-caixa-usuario {
-                font-size: 24px;
-            }
-        }
+    /* Para garantir que o footer fique no final da página */
+    .footer-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        flex: 0 0 auto;
+    }
+</style>
 
-        @media (min-width: 769px) {
-            .campo-caixa {
-                font-size: 36px;
-                padding: 35px;
-        }
-                .anuncio-content button {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-
-        .anuncio-content button:hover {
-            background-color: #c82333;
-        }
-
-        /* Caixa de Narrador */
-        .narrador-box {
-            background-color: #6f42c1;
-            color: white;
-            padding: 15px;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-                .info-link {
-            display: inline-flex;
-            align-items: center;
-            margin-left: 10px;
-            font-size: 16px;
-        }
-
-        .info-link i {
-            margin-right: 5px;
-            font-size: 20px;
-            color: #007bff;
-        }
-        
-
-        .footer {
-            background-color: #1877f2; /* Azul do Facebook */
-            color: white;
-            text-align: center;
-            padding: 10px;
-            width: 100%;
-            position: relative;
-        }
-
-        /* Para garantir que o footer fique no final da página */
-        .footer-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            flex: 0 0 auto;
-        }
-    </style>
     <script>
         // Função para tocar o áudio
         function tocarAudio() {
@@ -285,16 +293,16 @@ $conn->close();
     <div class="container">
         <div class="caixa">
             <div class="caixa-titulo">CAIXA</div>
-            <div id="tipoSenha"><strong><?php echo strtoupper($cliente['tipo_senha']); ?></strong></div>
+            <h2><div id="tipoSenha"><strong><?php echo strtoupper($cliente['tipo_senha']); ?></strong></div></h2>
         </div>
         <div class="caixa">
             <div class="caixa-titulo">ANTERIORES</div>
-            <div id="senhaAnterior" class="numero"><strong><?php echo $senha_anterior; ?></strong></div>
+            <h2><div id="senhaAnterior" class="numero"><strong><?php echo $senha_anterior; ?></strong></div></h2>
         </div>
         <div class="caixa">
             <div class="caixa-titulo">USUÁRIO</div>
-            <div id="nomeCliente"><strong><?php echo $cliente['nome']; ?></strong></div>
-            <div id="senhaGerada" class="numero"><strong><?php echo $cliente['senha_gerada']; ?></strong></div>
+            <h3><div id="nomeCliente"><strong><?php echo $cliente['nome']; ?></strong></div></h3>
+            <h2><div id="senhaGerada" class="numero"><strong><?php echo $cliente['senha_gerada']; ?></strong></div></h2>
         </div>
         
         <div class="caixa">
@@ -407,3 +415,4 @@ $conn->close();
 
 </body>
 </html>
+
