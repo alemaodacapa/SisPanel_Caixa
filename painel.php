@@ -155,7 +155,7 @@ $conn->close();
         }
 
         /* Design responsivo */
-        @media (max-width: 767px) {
+        @media (max-width: 400px) {
             .col-xs-6 {
                 width: 100%;
                 padding-left: 0;
@@ -163,7 +163,7 @@ $conn->close();
             }
         }
 
-        @media (min-width: 768px) and (max-width: 991px) {
+        @media (min-width: 400px) and (max-width: 991px) {
             .campo-caixa,
             .caixa-normal,
             .caixa-anterior {
@@ -176,7 +176,7 @@ $conn->close();
             }
         }
 
-        @media (min-width: 992px) and (max-width: 1199px) {
+        @media (min-width: 400px) and (max-width: 400px) {
             .campo-caixa,
             .caixa-normal,
             .caixa-anterior {
@@ -189,7 +189,7 @@ $conn->close();
             }
         }
 
-        @media (min-width: 1200px) {
+        @media (min-width: 400px) {
             .campo-caixa,
             .caixa-normal,
             .caixa-anterior {
@@ -274,7 +274,7 @@ $conn->close();
     <div class="barraSuperior">
         <div class="row">
             <div class="col-xs-1">
-                <img src="img/att.jpg" class="uespiLogo" alt="Logo">
+                <img src="img/att.jpg" class="uespiLogo" alt="Logo" style="width: 80px; height: auto;">
             </div>
             <div class="col-xs-11 text-right">
                 <span class="uespiTexto" style="color: white;">ATENDIMENTO</span><br>
@@ -286,40 +286,42 @@ $conn->close();
         </div>
     </div>
     
-    <div class="container page">
-        <div class="row">
-            <div class="col-xs-6">
-                <div class="caixa-normal">
-                    <div><strong>CAIXA</strong></div>
-                    <div><strong id="tipoSenha"><?php echo strtoupper($cliente['tipo_senha']); ?></strong></div>
-                </div>
-            </div>
-            <div class="col-xs-6">
-                <div class="caixa-anterior">
-                    <div><strong>ANTERIORES</strong></div>
-                    <div id="senhaAnterior"><?php echo $senha_anterior; ?></div>
-                </div>
+<div class="container page">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="caixa-normal" style="font-size: 22px;"> <!-- Reduz tamanho da letra -->
+                <div><strong>CAIXA</strong></div>
+                <div><strong id="tipoSenha"><?php echo strtoupper($cliente['tipo_senha']); ?></strong></div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="campo-caixa">
-                    <div><strong>USUÁRIO</strong></div>
-                    <div class="campo-caixa-usuario">
-                        <span id="nomeCliente"><?php echo $cliente['nome']; ?></span><br>
-                        <div id="info">
-                            <span id="senhaGerada" style="font-size: 40px; font-weight: bold;"><?php echo $cliente['senha_gerada']; ?></span>
-                        </div>
+        <div class="col-xs-6">
+            <div class="caixa-anterior" style="font-size: 22px;"> <!-- Reduz tamanho da letra -->
+                <div><strong>ANTERIORES</strong></div>
+                <div id="senhaAnterior"><?php echo $senha_anterior; ?></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="campo-caixa" style="font-size: 22px;"> <!-- Reduz tamanho da letra -->
+                <div><strong>USUÁRIO</strong></div>
+                <div class="campo-caixa-usuario">
+                    <span id="nomeCliente"><?php echo $cliente['nome']; ?></span><br>
+                    <div id="info">
+                        <span id="senhaGerada" style="font-size: 44px; font-weight: bold;"> <!-- Ajuste específico -->
+                            <?php echo $cliente['senha_gerada']; ?>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
     <audio id="audioChamada" src="audio/chamada.wav"></audio>
 
     <div class="footer">
-        <p><a href="https://social.x10.mx">Sis Panel</a> Todos os direitos reservados</p>
+        <p><a href="https://social.x10.mx/templates.html">Sis Panel</a> Todos os direitos reservados</p>
     </div>
 </body>
 </html>
