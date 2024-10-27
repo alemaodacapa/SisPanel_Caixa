@@ -69,259 +69,142 @@ $conn->close();
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-        <!-- Favicon -->
-    <link href="/img/att.jpg" rel="icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Caixa</title>
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <script src="lib/jquery-3.3.1.min.js"></script>
-    <script src="js/main.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Painel de Atendimento - Senhas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #ffffff;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Cor de fundo semelhante ao Facebook */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
         }
 
         .barraSuperior {
-            background-color: #0056b3;
-            padding: 20px;
+            background-color: #1877f2; /* Azul do Facebook */
             color: white;
-            height: 200px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .uespiLogo {
-            height: 80px;
-        }
-
-        .uespiTexto {
+            padding: 10px;
+            text-align: center;
             font-size: 24px;
-            font-weight: bold;
-        }
-
-        .subtitulo {
-            font-size: 18px;
-        }
-
-        .container.page {
-            padding: 1px;
-        }
-
-        .campo-caixa {
-            background-color: #007bff;
-            border-radius: 5px;
-            padding: 15px;
-            font-size: 40px;
-            text-align: center;
-            color: white;
-            margin-bottom: 20px; /* Espaçamento entre as caixas */
-            overflow: hidden;
-        }
-
-        .campo-caixa-usuario {
-            background-color: #ffff00;
-            color: #000000;
-            font-size: 30px;
-            padding: 15px;
-            font-weight: bold;
-        }
-
-        .row {
-            margin-left: 0;
-            margin-right: 0;
-        }
-
-        .col-xs-6 {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-
-        .caixa-normal,
-        .caixa-anterior {
-            background-color: #0056b3;
-            border-radius: 5px;
-            padding: 20px;
-            font-size: 40px;
-            text-align: center;
-            color: white;
-            margin-bottom: 20px; /* Espaçamento entre as caixas */
-            overflow: hidden;
-        }
-
-        /* Design responsivo */
-        @media (max-width: 400px) {
-            .col-xs-6 {
-                width: 100%;
-                padding-left: 0;
-                padding-right: 0;
-            }
-        }
-
-        @media (min-width: 400px) and (max-width: 991px) {
-            .campo-caixa,
-            .caixa-normal,
-            .caixa-anterior {
-                font-size: 30px;
-                padding: 15px;
-            }
-
-            .campo-caixa-usuario {
-                font-size: 20px;
-            }
-        }
-
-        @media (min-width: 400px) and (max-width: 400px) {
-            .campo-caixa,
-            .caixa-normal,
-            .caixa-anterior {
-                font-size: 35px;
-                padding: 18px;
-            }
-
-            .campo-caixa-usuario {
-                font-size: 25px;
-            }
-        }
-
-        @media (min-width: 400px) {
-            .campo-caixa,
-            .caixa-normal,
-            .caixa-anterior {
-                font-size: 40px;
-                padding: 20px;
-            }
-
-            .campo-caixa-usuario {
-                font-size: 30px;
-            }
-        }
-
-        .info-link {
-            display: inline-flex;
+            position: relative;
+            height: 50px;
+            display: flex;
             align-items: center;
-            margin-left: 10px;
-            font-size: 16px;
+            justify-content: center;
         }
 
-        .info-link i {
-            margin-right: 5px;
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Alinha ao centro */
+            padding: 20px;
+            flex: 1; /* Permite que o container ocupe o espaço restante */
+            overflow: auto; /* Adiciona rolagem se necessário */
+        }
+
+        .caixa {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            flex: 1 1 calc(30% - 40px); /* Tamanho flexível */
+            min-width: 300px; /* Largura mínima */
+            max-width: 400px; /* Largura máxima */
+            text-align: center;
+            opacity: 0; /* Começa invisível */
+            transform: translateY(20px); /* Deslocamento inicial */
+            animation: fadeInUp 0.5s forwards; /* Animação de entrada */
+        }
+
+        /* Animação de entrada */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1; /* Torna visível */
+                transform: translateY(0); /* Move para a posição original */
+            }
+        }
+
+        .caixa-titulo {
             font-size: 20px;
-            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .numero {
+            font-size: 36px; /* Aumentando o tamanho da fonte dos números */
+            font-weight: bold; /* Negrito para os números */
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 200px; /* Altura do vídeo */
+            overflow: hidden;
+            margin-top: 20px; /* Espaço acima do vídeo */
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Preenche o container */
         }
 
         .footer {
-            background-color: #0056b3;
+            background-color: #1877f2; /* Azul do Facebook */
             color: white;
             text-align: center;
             padding: 10px;
-            position: fixed;
             width: 100%;
-            bottom: 0;
         }
 
-        .footer a {
-            color: #ffff00;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
+        /* Para garantir que o footer fique no final da página */
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            flex: 0 0 auto;
         }
     </style>
-    <script>
-        // Função para tocar o áudio
-        function tocarAudio() {
-            const audio = document.getElementById('audioChamada');
-            audio.play();
-        }
-
-        // Função para narrar texto
-        function narrarTexto(texto) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(texto);
-                speechSynthesis.speak(utterance);
-            } else {
-                alert('Navegador não suporta síntese de fala.');
-            }
-        }
-
-        // Função para narrar o nome do cliente e a senha gerada ao carregar a página
-        function narrarInformacoes() {
-            const nomeCliente = document.getElementById('nomeCliente').textContent;
-            const senhaGerada = document.getElementById('senhaGerada').textContent;
-            narrarTexto(`Senha gerada para ${nomeCliente} é ${senhaGerada}`);
-        }
-
-        // Executa as funções quando a página é carregada
-        window.onload = function() {
-            tocarAudio(); // Toca o áudio
-            narrarInformacoes();
-            
-            // Atualiza a página a cada 25 segundos
-            setInterval(function() {
-                location.reload();
-            }, 25000); // 25000 milissegundos = 25 segundos
-        };
-    </script>
 </head>
 <body>
+
     <div class="barraSuperior">
-        <div class="row">
-            <div class="col-xs-1">
-                <img src="img/att.jpg" class="uespiLogo" alt="Logo" style="width: 80px; height: auto;">
-            </div>
-            <div class="col-xs-11 text-right">
-                <span class="uespiTexto" style="color: white;">ATENDIMENTO</span><br>
-                <span class="subtitulo">Chamada <strong>por Senha</strong></span><br>
-                <a href="https://social.x10.mx" class="info-link">
-                    <i class="fa fa-info-circle"></i> Info
-                </a>
-            </div>
-        </div>
+        ATENDIMENTO - CHAMADA POR SENHA
     </div>
-    
-<div class="container page">
-    <div class="row">
-        <div class="col-xs-6">
-            <div class="caixa-normal" style="font-size: 22px;"> <!-- Reduz tamanho da letra -->
-                <div><strong>CAIXA</strong></div>
-                <div><strong id="tipoSenha"><?php echo strtoupper($cliente['tipo_senha']); ?></strong></div>
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <div class="caixa-anterior" style="font-size: 22px;"> <!-- Reduz tamanho da letra -->
-                <div><strong>ANTERIORES</strong></div>
-                <div id="senhaAnterior"><?php echo $senha_anterior; ?></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <div class="campo-caixa" style="font-size: 22px;"> <!-- Reduz tamanho da letra -->
-                <div><strong>USUÁRIO</strong></div>
-                <div class="campo-caixa-usuario">
-                    <span id="nomeCliente"><?php echo $cliente['nome']; ?></span><br>
-                    <div id="info">
-                        <span id="senhaGerada" style="font-size: 44px; font-weight: bold;"> <!-- Ajuste específico -->
-                            <?php echo $cliente['senha_gerada']; ?>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-    <audio id="audioChamada" src="audio/chamada.wav"></audio>
-
-    <div class="footer">
-        <p><a href="https://social.x10.mx/templates.html">Sis Panel</a> Todos os direitos reservados</p>
+    <div class="container">
+        <div class="caixa">
+            <div class="caixa-titulo">CAIXA</div>
+            <div id="tipoSenha"><strong><?php echo strtoupper($cliente['tipo_senha']); ?></strong></div>
+        </div>
+        <div class="caixa">
+            <div class="caixa-titulo">ANTERIORES</div>
+            <div id="senhaAnterior" class="numero"><strong><?php echo $senha_anterior; ?></strong></div>
+        </div>
+        <div class="caixa">
+            <div class="caixa-titulo">USUÁRIO</div>
+            <div id="nomeCliente"><strong><?php echo $cliente['nome']; ?></strong></div>
+            <div id="senhaGerada" class="numero"><strong><?php echo $cliente['senha_gerada']; ?></strong></div>
+        </div>
+        <div class="caixa">
+            <div class="caixa-titulo">ANÚNCIO</div>
+            <div class="video-container">
+                <video autoplay loop muted>
+                    <source src="video/SEO_Summerside.mp4" type="video/mp4">
+                    Seu navegador não suporta vídeo HTML5.
+                </video>
+            </div>
+            <a href="https://painelsummerside.com.br" style="color: #1877f2;">Visitar o Site</a>
+        </div>
     </div>
+
+    <footer class="footer">
+        <p>© Sis Panel - Todos os direitos reservados</p>
+    </footer>
+
 </body>
 </html>
