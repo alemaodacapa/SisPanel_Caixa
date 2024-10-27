@@ -1,3 +1,69 @@
+<?php
+// Definir informações de conexão com o banco de dados
+$servidor = 'localhost'; // Altere para o servidor de banco de dados
+$usuario = 'user';    // Altere para o nome de usuário do banco de dados
+$senha = 'senha';       // Altere para a senha do banco de dados
+$bd = 'database';  // Altere para o nome do banco de dados
+
+// Criar conexão com o banco de dados
+$conn = new mysqli($servidor, $usuario, $senha, $bd);
+
+// Verificar se a conexão foi estabelecida corretamente
+if ($conn->connect_error) {
+    die('Conexão não estabelecida: ' . $conn->connect_error);
+}
+
+try {
+    // Obter a última senha gerada e as informações do cliente
+    $sql_cliente = "
+        SELECT 
+            c.senha AS senha_gerada, 
+            c.nome, 
+            c.tipo_senha,
+            c.id
+        FROM clientes c
+        ORDER BY c.id DESC 
+        LIMIT 1
+    ";
+    
+    $result = $conn->query($sql_cliente);
+
+    if ($result->num_rows > 0) {
+        // Obter os dados do cliente
+        $cliente = $result->fetch_assoc();
+
+        // Obter a última senha gerada anteriormente
+        $sql_senhas_anteriores = "
+            SELECT senha 
+            FROM clientes 
+            WHERE id < ? 
+            ORDER BY id DESC 
+            LIMIT 1
+        ";
+        $stmt = $conn->prepare($sql_senhas_anteriores);
+        $stmt->bind_param("i", $cliente['id']);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $senha_anterior = $resultado->num_rows > 0 ? $resultado->fetch_assoc()['senha'] : 'Nenhuma senha anterior';
+
+    } else {
+        // Se não houver cliente, definir valores padrão
+        $cliente = [
+            'senha_gerada' => '0000',
+            'nome' => 'Nome do Cliente',
+            'tipo_senha' => 'normal',
+            'id' => 0
+        ];
+        $senha_anterior = 'Nenhuma senha anterior';
+    }
+} catch (Exception $e) {
+    // Exibir a mensagem de erro diretamente para diagnóstico
+    die('Erro ao consultar dados: ' . $e->getMessage());
+}
+
+// Fechar a conexão
+$conn->close();
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
