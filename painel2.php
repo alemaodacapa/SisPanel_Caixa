@@ -68,276 +68,250 @@ $conn->close();
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <!-- Favicon -->
-    <link href="/img/att.jpg" rel="icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Gerenciador de Filas, Painel de Atendimento, Gestão de Senhas, Senhas Preferenciais, Senhas Normais, Caixa de Atendimento, Atualização Automática, Narração de Senhas, Som de Notificação, Painel Administrativo, Relatório de Atendimento, Senhas Automáticas, Sistema de Fila Única, Interface de Atendimento, Sistema de Senhas Online, Gestão de Clientes, Atendimento ao Cliente, Acessibilidade no Atendimento, Senhas Eletrônicas, Solução de Filas"/>
-    <meta property="og:description" content="Sis Panel - Gerenciador de Filas Online"/>
-    <meta property="og:image" content="https://caixa.e-painel.x10.mx/imagens/SisPanel.jpg" />
-    <title>Sis Panel - Gerenciador de Filas Online</title>
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <title>Painel de Atendimento</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="css/bootstrap2.css" rel="stylesheet">
+    <link href="css/style3.css" rel="stylesheet">
     <script src="lib/jquery-3.3.1.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/inject.js"></script>
     <script src="js/funcoes_painel.js"></script>
-    <script src="js/painel.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
+    <script src="js/jquery.js"></script>
+    <script src="js/script.js"></script>
     <style>
-        body {
-            background-color: #f0f0f0;
-            color: #333;
-            font-family: Arial, sans-serif;
+        /* Estilos gerais */
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Arial', sans-serif;
         }
-
-        .barraSuperior {
-            background-color: #0056b3;
-            padding: 20px;
-            color: white;
-            height: 200px;
-            margin-bottom: 20px;
+        body {
+            background: linear-gradient(135deg, #007bff, #5a5aff);
+            color: #fff;
             display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             align-items: center;
         }
-
-        .uespiLogo {
-            height: 80px;
-            margin-right: 20px;
-        }
-
-        .uespiTexto {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .subtitulo {
-            font-size: 18px;
-        }
-
-        .container.page {
+        
+        /* Barra superior */
+        .barraSuperior {
+            background-color: #003a5f;
+            color: #fff;
             padding: 20px;
-        }
-
-        .campo-caixa {
-            background-color: #007bff;
-            border-radius: 5px;
-            padding: 20px;
-            font-size: 30px;
+            font-size: 2.5rem; /* Aumenta o tamanho da fonte */
             text-align: center;
-            color: white;
-            margin-bottom: 20px;
-            transition: background-color 0.3s;
-        }
-
-        .campo-caixa:hover {
-            background-color: #0056b3; /* Muda a cor ao passar o mouse */
-        }
-
-        .campo-caixa-usuario {
-            background-color: #ffff00;
-            color: #000000;
-            font-size: 30px;
-            padding: 15px;
-            font-weight: bold;
-            border-radius: 5px;
-        }
-
-        .row {
-            margin-left: 0;
-            margin-right: 0;
-        }
-
-        /* Design responsivo */
-        @media (max-width: 768px) {
-            .campo-caixa {
-                font-size: 24px;
-                padding: 15px;
-            }
-
-            .campo-caixa-usuario {
-                font-size: 20px;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .campo-caixa {
-                font-size: 35px;
-                padding: 25px;
-            }
-
-            .campo-caixa-usuario {
-                font-size: 28px;
-            }
-        }
-
-        .footer {
-            background-color: #0056b3;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             width: 100%;
-            bottom: 0;
         }
 
-        .footer a {
-            color: #ffff00;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Anúncios */
-        .anuncio-content {
-            background-color: #28a745;
-            color: white;
-            border-radius: 5px;
+        /* Container principal */
+        .container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Caixas responsivas */
+            gap: 20px; /* Espaçamento entre as caixas */
             padding: 20px;
+            width: 100%;
+            max-width: 1200px; /* Limita a largura máxima */
+        }
+
+        /* Estilo da caixa */
+        .caixa {
+            background: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 40px; /* Aumenta o padding */
             text-align: center;
-            margin-bottom: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            color: #333;
+            font-size: 1.8rem; /* Aumenta o tamanho da fonte */
         }
 
-        .anuncio-content button {
-            background-color: #dc3545;
-            color: white;
-            border: none;
+        .caixa-titulo {
+            font-weight: bold;
+            font-size: 2.2rem; /* Aumenta o tamanho do título */
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+
+        .caixa:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Estilo do vídeo */
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            margin: 10px 0;
+            background-color: #000; /* Fundo preto para o vídeo */
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%; /* Garante que o vídeo preencha a altura */
+            object-fit: cover; /* Mantém a proporção do vídeo */
+            border-radius: 10px;
+        }
+
+        /* Botão Visitar o Site */
+        .botao-visitar {
+            display: inline-block;
+            padding: 15px 30px; /* Aumenta o tamanho do botão */
+            background-color: #007bff;
+            color: #fff;
             border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
+            text-decoration: none;
+            margin-top: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            font-size: 1.5rem; /* Aumenta o tamanho da fonte do botão */
         }
 
-        .anuncio-content button:hover {
-            background-color: #c82333;
+        .botao-visitar:hover {
+            background-color: #0056b3;
+            transform: scale(1.05); /* Efeito de aumento ao passar o mouse */
+        }
+
+        /* Rodapé */
+        .footer {
+            width: 100%;
+            background-color: #1a1a1d;
+            color: #c9c9c9;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: auto;
+        }
+
+        /* Estilo para data e hora */
+        .data-hora {
+            font-size: 1.5rem; /* Aumenta o tamanho da fonte */
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .container {
+                display: flex;
+                flex-direction: column; /* Muda a direção do layout para coluna */
+                align-items: center; /* Centraliza as caixas */
+                padding: 10px; /* Adiciona algum padding lateral */
+            }
+
+            .caixa {
+                width: 100%; /* Faz as caixas ocuparem 100% da largura */
+                max-width: 400px; /* Define uma largura máxima para as caixas */
+                margin: 10px 0; /* Adiciona margem entre as caixas */
+            }
+
+            .video-container {
+                height: auto; /* Deixa a altura do vídeo automática */
+            }
+        }
+
+        @media (min-width: 600px) {
+            .video-container {
+                height: 250px; /* Ajusta a altura do vídeo em telas grandes */
+            }
         }
     </style>
 </head>
 <body>
-    <div class="barraSuperior">
-        <img src="img/att.jpg" class="uespiLogo" alt="Logo">
-        <div>
-            <span class="uespiTexto">ATENDIMENTO</span><br>
-            <span class="subtitulo">Chamada <strong>por Senha</strong></span>
-            <a href="https://social.x10.mx" class="info-link">
-                <i class="fa fa-info-circle"></i> Info
-            </a>
-        </div>
+<header class="barraSuperior">
+    ATENDIMENTO - CHAMADA POR SENHA
+</header>
+
+<main class="container">
+    <div class="caixa">
+        <div class="caixa-titulo">CAIXA</div>
+        <h2><div id="tipoSenha"><strong><?php echo strtoupper($cliente['tipo_senha']); ?></strong></div></h2>
     </div>
-
-    <div class="container page">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="campo-caixa">
-                    <div><strong>CAIXA</strong></div>
-                    <div><strong id="tipoSenha"><?php echo strtoupper($cliente['tipo_senha']); ?></strong></div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="campo-caixa">
-                    <div><strong>ANTERIORES</strong></div>
-                    <div id="senhaAnterior"><?php echo $senha_anterior; ?></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="campo-caixa">
-                    <div><strong>USUÁRIO</strong></div>
-                    <div class="campo-caixa-usuario">
-                        <span id="nomeCliente"><?php echo $cliente['nome']; ?></span><br>
-                        <div id="info">
-                            <span id="senhaGerada" style="font-size: 44px; font-weight: bold;">
-                                <?php echo $cliente['senha_gerada']; ?>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Anúncio para Desktop -->
-            <div class="col-md-6 d-none d-md-block">
-                <div class="anuncio-content">
-                    <strong>ANÚNCIO</strong>
-                    <div class="video-container">
-                        <video id="seoVideoDesktop" width="100%" autoplay loop muted>
-                            <source src="video/SEO_Summerside.mp4" type="video/mp4">
-                            Seu navegador não suporta vídeo HTML5.
-                        </video>
-                    </div>
-                    <a href="https://painelsummerside.com.br" class="botao-visitar-desktop" style="color: white">Visitar o Site</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Anúncio para Mobile -->
-        <div class="col-md-6 d-md-none">
-            <div class="anuncio-content" style="display: none;">
-                <button id="fecharAnuncio">X</button>
-                <div>
-                    <strong>ANÚNCIO</strong>
-                    <div class="video-container">
-                        <video id="seoVideoMobile" width="100%" autoplay loop muted>
-                            <source src="video/SEO_Summerside.mp4" type="video/mp4">
-                            Seu navegador não suporta vídeo HTML5.
-                        </video>
-                    </div>
-                    <a href="https://painelsummerside.com.br" class="botao-visitar" style="color: white">Visitar o Site</a>
-                </div>
-            </div>
-        </div>
+    <div class="caixa">
+        <div class="caixa-titulo">ANTERIORES</div>
+        <h2><div id="senhaAnterior" class="numero"><strong><?php echo $senha_anterior; ?></strong></div></h2>
     </div>
-
-    <!-- Áudio de chamada -->
-    <audio id="audioChamada" src="audio/chamada.wav"></audio>
-
-    <script>
-        // Função para tocar o áudio
-        function tocarAudio() {
-            const audio = document.getElementById('audioChamada');
-            audio.currentTime = 0;
-            audio.play().catch((error) => {
-                console.error('Erro ao tentar tocar áudio:', error);
-            });
-        }
-
-        // Função para buscar os dados do cliente
-        function buscarDadosCliente() {
-            $.ajax({
-                url: 'consultar_cliente.php', // Endpoint que retorna os dados do cliente
-                method: 'GET',
-                success: function(data) {
-                    const cliente = JSON.parse(data);
-                    document.getElementById('nomeCliente').textContent = cliente.nome;
-                    document.getElementById('senhaGerada').textContent = cliente.senha_gerada;
-                    document.getElementById('tipoSenha').textContent = cliente.tipo_senha;
-                    document.getElementById('senhaAnterior').textContent = cliente.senha_anterior;
-
-                    // Toca o áudio quando novos dados forem recebidos
-                    tocarAudio();
-                }
-            });
-        }
-
-        // Chamada para buscar dados a cada 5 segundos
-        setInterval(buscarDadosCliente, 5000);
-
-        // Mostrar ou esconder o anúncio em mobile após 10 segundos
-        setTimeout(() => {
-            document.querySelector('.anuncio-content').style.display = 'block';
-        }, 10000);
-
-        document.getElementById('fecharAnuncio').addEventListener('click', function() {
-            document.querySelector('.anuncio-content').style.display = 'none';
-        });
-    </script>
+    <div class="caixa">
+        <div class="caixa-titulo">USUÁRIO</div>
+        <h3><div id="nomeCliente"><strong><?php echo $cliente['nome']; ?></strong></div></h3>
+        <h2><div id="senhaGerada" class="numero"><strong><?php echo $cliente['senha_gerada']; ?></strong></div></h2>
+    </div>
     
-    <footer class="footer">
-        <p>© 2024 Sis Panel. Todos os direitos reservados. | <a href="https://social.x10.mx">Social Media</a></p>
-    </footer>
+    <div class="caixa" style="grid-column: span 2;"> <!-- Faz a caixa ocupar duas colunas -->
+        <div class="caixa-titulo">ANÚNCIO</div>
+        <div class="video-container">
+            <video autoplay loop muted>
+                <source src="video/SEO_Summerside.mp4" type="video/mp4">
+                Seu navegador não suporta vídeo HTML5.
+            </video>
+        </div>
+        <a href="https://painelsummerside.com.br" class="botao-visitar" style="color: blue">Visitar o Site</a>
+    </div>
+    <div class="caixa">
+        <div class="caixa-titulo">ANÚNCIO</div>
+        <div class="video-container">
+            <video autoplay loop muted>
+                <source src="video/google_meu_negocio.mp4" type="video/mp4">
+                Seu navegador não suporta vídeo HTML5.
+            </video>
+        </div>
+        <a href="https://painelsummerside.com.br" class="botao-visitar">Visitar o Site</a>
+    </div>
+</main>
+
+<footer class="footer">
+    <p>© Sis Panel - Todos os direitos reservados</p>
+</footer>
+
+<!-- Áudio de chamada -->
+<audio id="audioChamada" src="audio/chamada.wav"></audio>
+<!-- Áudio da narração -->
+<audio id="audioNarracao" src="audio/narracao.mp3"></audio>
+
+<script>
+    function tocarAudio() {
+        const audio = document.getElementById('audioChamada');
+        audio.play();
+    }
+
+    function tocarNarracao() {
+        const narracao = document.getElementById('audioNarracao');
+        narracao.play();
+    }
+
+    function atualizarDados() {
+        const nomeCliente = document.getElementById('nomeCliente');
+        const senhaGerada = document.getElementById('senhaGerada');
+
+        // Aqui você pode definir as variáveis 'nome' e 'senha' a partir de seus dados
+        const nome = '<?php echo $cliente['nome']; ?>'; 
+        const senha = '<?php echo $cliente['senha_gerada']; ?>'; 
+
+        // Atualiza os elementos
+        nomeCliente.innerHTML = `<strong>${nome}</strong>`;
+        senhaGerada.innerHTML = `<strong>${senha}</strong>`;
+
+        // Toca a narração após atualizar os dados
+        tocarNarracao();
+    }
+
+    // Chama a função para atualizar os dados e tocar áudio
+    atualizarDados();
+    setInterval(atualizarDados, 10000); // Atualiza os dados a cada 10 segundos
+
+    // Atualiza a página a cada 40 segundos
+    setInterval(function() {
+        location.reload();
+    }, 40000); // 40000 milissegundos = 40 segundos
+
+    // Tocar o áudio de chamada no início
+    tocarAudio();
+</script>
 </body>
 </html>
+
+
