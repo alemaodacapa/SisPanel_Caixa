@@ -41,7 +41,6 @@ try {
 // Fechar a conexão
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -63,52 +62,180 @@ $conn->close();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <!-- Estilos -->
-    <style>
-        /* Estilo geral */
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow: hidden;
-            height: 100%;
-        }
+<style>
+    /* Estilo geral */
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
 
-        .barraSuperior {
-            background-color: #003a5f;
-            color: white;
-            text-align: center;
-            font-size: 20px;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100px;
-        }
+    /* Estilos da Barra Superior */
+    .barraSuperior {
+        background-color: #003a5f;
+        color: white;
+        text-align: center;
+        font-size: 24px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100px;
+    }
 
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
-            flex: 1 0 200px;
-            gap: 20px;
-            overflow: hidden;
-        }
+    /* Container Principal */
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        padding: 20px;
+        gap: 20px;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
 
+    /* Estilo das Caixas */
+    .caixas-row {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        width: 100%;
+        max-width: 100%;
+        flex-wrap: wrap;
+    }
+
+    /* Configurações para Desktop */
+    @media (min-width: 769px) {
         .caixa {
-            width: 100%;
-            max-width: 400px;
-            margin: 10px 0;
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            flex: 1 1 calc(30% - 40px);
             text-align: center;
+            transition: transform 0.3s;
+        }
+    }
+
+    .caixa:hover {
+        transform: scale(1.05);
+    }
+
+    /* Caixa de vídeo */
+    .caixa-video {
+        background-color: transparent;
+        position: relative;
+        max-width: 80vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border-radius: 20px;
+    }
+
+    .caixa-video video {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    /* Link invisível sobre o vídeo */
+    .video-overlay-link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+    }
+
+    /* Footer */
+    .footer {
+        background-color: #003a5f;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        width: 100%;
+        font-size: 14px;
+        position: relative;
+    }
+
+    .footer a {
+        color: #ffff00;
+        text-decoration: none;
+    }
+
+    .footer a:hover {
+        text-decoration: underline;
+    }
+
+    /* Estilo dos campos */
+    .campo-caixa {
+        background-color: #007bff;
+        border-radius: 5px;
+        padding: 15px;
+        font-size: 24px;
+        text-align: center;
+        color: white;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+
+    .campo-caixa-usuario {
+        color: #000;
+        font-size: 24px;
+        padding: 10px;
+    }
+        /* Exibe o anúncio apenas em telas maiores */
+    @media (min-width: 769px) {
+        .anuncio-lateral {
+            width: 120px;
+            height: 600px;
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #ccc; /* Fundo temporário para visualização */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    /* Oculta o anúncio em telas menores */
+    @media (max-width: 768px) {
+        .anuncio-lateral {
+            display: none;
+        }
+    }
+
+    /* Ajustes para mobile */
+    @media (max-width: 768px) {
+        .caixas-row {
+            flex-direction: column;
+            align-items: center;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .caixa {
+            min-width: 300px;
+            max-width: 400px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
             transition: transform 0.3s;
         }
 
@@ -116,96 +243,52 @@ $conn->close();
             transform: scale(1.05);
         }
 
-        /* Caixa de vídeo independente */
         .caixa-video {
-            background-color: transparent;
-            position: relative;
-            max-width: 100%;
-            margin: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            border-radius: 20px;
-        }
-
-        .caixa-video video {
             width: 100%;
-            height: auto;
-            object-fit: cover;
-            border-radius: 10px;
         }
 
-        .video-overlay-link {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
+        body {
+            overflow-y: auto; /* Permite rolagem no mobile */
         }
-
-        /* Ajuste para mobile */
-        @media (max-width: 768px) {
-            .caixa-video {
-                width: 100%;
-                max-width: 300px;
-                margin: 20px auto;
-            }
-
-            .caixa-video video {
-                border-radius: 10px;
-                width: 100%;
-            }
-        }
-
-        .footer {
-            background-color: #003a5f;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            width: 100%;
-            font-size: 14px;
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
+    <!-- Anúncio lateral -->
+    <div class="anuncio-lateral">
+        <!-- Imagem ou código do anúncio aqui -->
+        <a href="https://pagbank.vc/indica-maquininhas-e938379fe"><img src="/img/seguranca_120x600.gif" alt="Banner PagSeguro" title="Compre com PagSeguro e fique sossegado" style="width: 100%; height: 600px;"></a>
+    </div>
+    <!-- Conteúdo principal da página -->
+
     <div class="barraSuperior">ATENDIMENTO - CHAMADA POR SENHA</div>
 
     <div class="container">
-        <div class="caixa">
-            <div class="caixa-titulo">CAIXA</div>
-            <h1><strong style="font-size: 33px; font-weight: bold;"><?php echo strtoupper($cliente['tipo_senha']); ?></strong></h1>
-        </div>
-        <div class="caixa">
-            <div class="caixa-titulo">ANTERIORES</div>
-            <h1><strong style="font-size: 33px; font-weight: bold;"><?php echo $senha_anterior; ?></strong></h1>
-        </div>
-        <div class="caixa">
-            <div class="caixa-titulo">USUÁRIO</div>
-            <h1><strong style="font-size: 33px; font-weight: bold;"><?php echo $cliente['nome']; ?></strong></h1>
-        </div>
-        <div class="caixa">
-            <div class="caixa-titulo">SENHA ATUAL</div>
-            <h1><strong style="font-size: 50px; font-weight: bold;"><?php echo $cliente['senha_gerada']; ?></strong></h1>
-        </div>
-
-        <!-- Caixa de Relógio -->
-        <div class="caixa">
-            <div class="caixa-titulo">HORÁRIO</div>
-            <h1>
-                <div id="relogio">
-                    <strong style="font-size: 33px; font-weight: bold;"></strong>
-                </div>
-            </h1>
-        </div>
-
-        <!-- Caixa de Previsão do Tempo -->
-        <div class="caixa">
-            <div class="caixa-titulo">PREVISÃO DO TEMPO</div>
-            <h1 id="previsao-tempo" style="font-size: 20px;">
-                Carregando previsão do tempo...
-            </h1>
+        <div class="caixas-row">
+            <div class="caixa">
+                <div class="caixa-titulo">CAIXA</div>
+                <h1><strong style="font-size: 33px; font-weight: bold;"><?php echo strtoupper($cliente['tipo_senha']); ?></strong></h1>
+            </div>
+            <div class="caixa">
+                <div class="caixa-titulo">ANTERIORES</div>
+                <h1><strong style="font-size: 33px; font-weight: bold;"><?php echo $senha_anterior; ?></strong></h1>
+            </div>
+            <div class="caixa">
+                <div class="caixa-titulo">USUÁRIO</div>
+                <h1><strong style="font-size: 33px; font-weight: bold;"><?php echo $cliente['nome']; ?></strong></h1>
+            </div>
+            <div class="caixa">
+                <div class="caixa-titulo">SENHA ATUAL</div>
+                <h1><strong style="font-size: 50px; font-weight: bold;"><?php echo $cliente['senha_gerada']; ?></strong></h1>
+            </div>
+            <div class="caixa">
+                <div class="caixa-titulo">HORÁRIO</div>
+                <h1>
+                    <div id="relogio">
+                        <strong style="font-size: 33px; font-weight: bold;"></strong>
+                    </div>
+                </h1>
+            </div>
         </div>
 
         <div class="caixa-video">
@@ -213,11 +296,10 @@ $conn->close();
                 <source src="video/SisPanel.mp4" type="video/mp4">
                 Seu navegador não suporta o elemento de vídeo.
             </video>
-            <a href="https://pay.hotmart.com/Y95202654S?checkoutMode=2" class="link-overlay"></a>
+            <a href="https://pay.hotmart.com/Y95202654S?checkoutMode=2" class="video-overlay-link"></a>
         </div>
     </div>
 
-    <!-- Script para atualizar o relógio -->
     <script>
         function atualizarRelogio() {
             const elementoRelogio = document.getElementById("relogio").querySelector("strong");
@@ -225,53 +307,21 @@ $conn->close();
             const horas = String(agora.getHours()).padStart(2, '0');
             const minutos = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
-            
             elementoRelogio.textContent = `${horas}:${minutos}:${segundos}`;
         }
         setInterval(atualizarRelogio, 1000);
         atualizarRelogio();
     </script>
 
-    <!-- Script para obter e exibir a previsão do tempo -->
-    <script>
-        async function obterPrevisaoTempo() {
-            const apiKey = "SUA_API_KEY"; // Insira sua chave da API OpenWeatherMap aqui
-            const cidade = "Sao Paulo"; // Substitua pela cidade desejada
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${apiKey}&lang=pt_br&units=metric`;
-
-            try {
-                const resposta = await fetch(url);
-                const dados = await resposta.json();
-
-                if (dados.cod === 200) {
-                    const temperatura = dados.main.temp;
-                    const descricao = dados.weather[0].description;
-                    const cidadeNome = dados.name;
-
-                    document.getElementById("previsao-tempo").textContent = 
-                        `${cidadeNome}: ${temperatura}°C, ${descricao.charAt(0).toUpperCase() + descricao.slice(1)}`;
-                } else {
-                    document.getElementById("previsao-tempo").textContent = 
-                        "Não foi possível obter a previsão do tempo.";
-                }
-            } catch (error) {
-                document.getElementById("previsao-tempo").textContent = 
-                    "Erro ao obter a previsão do tempo.";
-            }
-        }
-
-        obterPrevisaoTempo(); // Chama a função para obter a previsão do tempo
-    </script>
-
-</body>
-
-
     <audio id="audioChamada" src="audio/chamada.wav"></audio>
 
     <footer class="footer">
         <p>© 2024 Sis Panel. Todos os direitos reservados. <a href="https://social.x10.mx">Social Media</a></p>
     </footer>
+    
 </body>
 </html>
+
+
 
 
