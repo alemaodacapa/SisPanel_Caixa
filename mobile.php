@@ -5,7 +5,7 @@ $usuario = 'usuario';
 $senha = 'senha';
 $bd = 'database';
 
-// Criar conexão com o banco de dados
+/ Criar conexão com o banco de dados
 $conn = new mysqli($servidor, $usuario, $senha, $bd);
 
 // Verificar se a conexão foi estabelecida corretamente
@@ -68,118 +68,124 @@ $conn->close();
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <link href="/img/att.jpg" rel="icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Gerenciador de Filas, Painel de Atendimento, Gestão de Senhas, Senhas Preferenciais, Senhas Normais, Caixa de Atendimento, Atualização Automática, Narração de Senhas, Som de Notificação, Painel Administrativo, Relatório de Atendimento, Senhas Automáticas, Sistema de Fila Única, Interface de Atendimento, Sistema de Senhas Online, Gestão de Clientes, Atendimento ao Cliente, Acessibilidade no Atendimento, Senhas Eletrônicas, Solução de Filas"/>
-    <meta property="og:description" content="Sis Panel - Gerenciador de Filas Online"/>
-    <meta property="og:image" content="https://caixa.e-painel.x10.mx/img/banner.jpg" />
-    <meta name="robots" content="index,follow">
-    <title>Sis Panel - Gerenciador de Filas Online</title>
+    <title>Painel de Caixa</title>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="lib/jquery-3.3.1.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/inject.js"></script>
-    <script src="js/funcoes_painel.js"></script>
-    <script src="js/painel.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
+    <meta property="og:image" content="/img/Sis.jpg">
     <style>
-        /* Estilo geral */
         body {
+            background-color: #ffffff;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
             margin: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            padding: 0;
         }
 
-        /* Estilos da Barra Superior */
         .barraSuperior {
-            background-color: #003a5f;
+            background-color: #0056b3;
+            padding: 10px 15px;
             color: white;
-            text-align: center;
-            font-size: 24px;
-            padding: 20px;
+            height: 80px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            height: 100px;
         }
 
-        /* Container Principal */
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* Centraliza as caixas */
-            padding: 20px;
-            flex: 1;
-            gap: 20px; /* Espaço entre as caixas */
-            overflow: auto;
+        .uespiLogo {
+            height: 50px;
+            margin-right: 10px;
         }
 
-        /* Estilo das Caixas */
-        .caixa {
-            width: 100%; /* Faz as caixas ocuparem 100% da largura */
-            max-width: 350px; /* Define uma largura máxima para as caixas */
-            margin: 10px; /* Margem para espaçamento */
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px; /* Maior padding para melhor visualização */
+        .uespiTexto {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .subtitulo {
+            font-size: 14px;
+            color: #e0e0e0;
+            line-height: 1.2;
+        }
+
+        .info-link {
+            font-size: 13px;
+            color: #ffff00;
+            text-decoration: none;
+        }
+
+        .container.page {
+            padding: 10px;
+        }
+
+        .campo-caixa {
+            background-color: #007bff;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 35px;
             text-align: center;
-            transition: transform 0.3s;
+            color: white;
+            margin-bottom: 15px;
+            overflow: hidden;
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .caixa:hover {
-            transform: scale(1.05); /* Efeito de hover */
+        .campo-caixa-usuario {
+            background-color: #ffff00;
+            color: #000000;
+            font-size: 30px;
+            padding: 15px;
+            font-weight: bold;
         }
 
-        /* Ajustes para mobile */
-        @media (max-width: 768px) {
-            .caixa {
-                flex: 1 1 100%; /* Cada caixa ocupa 100% da largura */
-                max-width: 100%;
-                border-radius: 20px; /* Bordas arredondadas */
+        .caixa-normal,
+        .caixa-anterior {
+            background-color: #0056b3;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 32px;
+            text-align: center;
+            color: white;
+            margin-bottom: 15px;
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 767px) {
+            .campo-caixa,
+            .caixa-normal,
+            .caixa-anterior {
+                font-size: 30px;
+                padding: 12px;
+            }
+
+            .campo-caixa-usuario {
+                font-size: 24px;
+            }
+
+            .barraSuperior {
+                height: 70px;
+                padding: 8px 12px;
+            }
+
+            .uespiLogo {
+                height: 40px;
+            }
+
+            .uespiTexto {
+                font-size: 18px;
             }
         }
 
-        /* Caixa de vídeo */
-        .caixa-video {
-            background-color: transparent;
-            position: relative;
-            max-width: 100%; /* Ajuste da largura */
-            margin: auto; /* Centraliza a caixa na tela */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            border-radius: 20px;
-        }
-
-        /* Estilo do vídeo */
-        .caixa-video video {
-            width: 100%; /* Ajusta a largura do vídeo */
-            height: auto;
-            object-fit: cover; /* Cobre a área da caixa */
-            border-radius: 10px;
-        }
-
-        /* Link invisível sobre o vídeo */
-        .video-overlay-link {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-        }
-
-        /* Footer */
         .footer {
-            background-color: #003a5f;
+            background-color: #0056b3;
             color: white;
             text-align: center;
             padding: 10px;
@@ -188,89 +194,211 @@ $conn->close();
         }
 
         .footer a {
-            color: #ffff00; /* Cor do link */
+            color: #ffff00;
             text-decoration: none;
         }
 
         .footer a:hover {
-            text-decoration: underline; /* Sublinha ao passar o mouse */
-        }
-
-        /* Estilo dos campos */
-        .campo-caixa {
-            background-color: #007bff;
-            border-radius: 5px;
-            padding: 15px;
-            font-size: 24px;
-            text-align: center;
-            color: white;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-
-        .campo-caixa-usuario {
-            color: #000;
-            font-size: 24px;
-            padding: 10px;
+            text-decoration: underline;
         }
     </style>
+    <script>
+        function tocarAudio() {
+            const audio = document.getElementById('audioChamada');
+            audio.play();
+        }
+
+        function narrarTexto(texto) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(texto);
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('Navegador não suporta síntese de fala.');
+            }
+        }
+
+        function narrarInformacoes() {
+            const nomeCliente = document.getElementById('nomeCliente').textContent;
+            const senhaGerada = document.getElementById('senhaGerada').textContent;
+            narrarTexto(`Senha gerada para ${nomeCliente} é ${senhaGerada}`);
+        }
+
+        window.onload = function() {
+            tocarAudio();
+            narrarInformacoes();
+            setInterval(function () {
+                location.reload();
+            }, 25000);
+        };
+    </script>
 </head>
 <body>
 
-    <!-- Barra Superior -->
     <div class="barraSuperior">
-        ATENDIMENTO - CHAMADA POR SENHA
+        <img src="img/att.jpg" class="uespiLogo" alt="Logo">
+        <div>
+            <div class="uespiTexto">ATENDIMENTO</div>
+            <div class="subtitulo">Chamada por Senha <a href="https://social.x10.mx" class="info-link"><i class="fa fa-info-circle"></i> Info</a></div>
+        </div>
     </div>
 
-    <!-- Contêiner principal das caixas -->
-    <div class="container">
-        <div class="caixa">
-            <div class="caixa-titulo">CAIXA</div>
-            <h1>
-                <div id="tipoSenha">
-                    <strong style="font-size: 33px; font-weight: bold;"><?php echo strtoupper($cliente['tipo_senha']); ?></strong>
-                </div>
-            </h1>
+    <div class="container page">
+        <div class="caixa-normal">
+            <div><strong>CAIXA</strong></div>
+            <div><strong id="tipoSenha"><?php echo strtoupper($cliente['tipo_senha']); ?></strong></div>
         </div>
-        <div class="caixa">
-            <div class="caixa-titulo">ANTERIORES</div>
-            <h1>
-                <div id="senhaAnterior" class="numero">
-                    <strong style="font-size: 33px; font-weight: bold;"><?php echo $senha_anterior; ?></strong>
-                </div>
-            </h1>
+        <div class="caixa-anterior">
+            <div><strong>ANTERIORES</strong></div>
+            <div id="senhaAnterior"><?php echo $senha_anterior; ?></div>
         </div>
-        <div class="caixa">
-            <div class="caixa-titulo">USUÁRIO</div>
-            <h1>
-                <div id="nomeCliente">
-                    <strong style="font-size: 33px; font-weight: bold;"><?php echo $cliente['nome']; ?></strong>
+        <div class="campo-caixa">
+            <div><strong>USUÁRIO</strong></div>
+            <div class="campo-caixa-usuario">
+                <span id="nomeCliente"><?php echo $cliente['nome']; ?></span><br>
+                <div id="info">
+                    <span id="senhaGerada" style="font-size: 40px; font-weight: bold;"><?php echo $cliente['senha_gerada']; ?></span>
                 </div>
-            </h1>
-        </div>
-        <div class="caixa">
-            <div class="caixa-titulo">SENHA GERADA</div>
-            <h1>
-                <div id="senhaGerada" class="numero">
-                    <strong style="font-size: 50px; font-weight: bold;"><?php echo $cliente['senha_gerada']; ?></strong>
-                </div>
-            </h1>
-        </div>
-        <div class="caixa-video">
-            <video autoplay muted loop>
-                <source src="video/SisPanel.mp4" type="video/mp4">
-                Seu navegador não suporta o elemento de vídeo.
-            </video>
-            <a href="https://pay.hotmart.com/Y95202654S?checkoutMode=2" class="link-overlay"></a>
-            <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
             </div>
         </div>
     </div>
 
-    <audio id="audioChamada" src="audio/chamada.mp3"></audio>
-    
-    <footer class="footer">
-        <p>© 2024 Sis Panel. Todos os direitos reservados. | <a href="https://social.x10.mx">Social Media</a></p>
-    </footer>
+    <audio id="audioChamada" src="audio/chamada.wav"></audio>
+
+    <div class="footer">
+        <p><a href="https://social.x10.mx">Sis Panel</a> Todos os direitos reservados</p>
+    </div>
+<div style="display: flex; justify-content: center; align-items: center; margin: 10px;">
+  <!-- Vídeo Clicável -->
+  <a href="https://reggaeroots.com.br/apk/android/app-release.apk"  
+     target="_blank" 
+     rel="noopener noreferrer" 
+     class="video-merchandising-link"
+     style="text-decoration: none; display: inline-block; width: 265px; height: auto; margin: 0 10px;">
+     
+    <div class="video-wrapper">
+      <video class="video-merch" muted loop autoplay playsinline>
+        <source src="/video/Vídeo_Merchandising.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos.
+      </video>
+    </div>
+  </a>
+
+  <!-- Banner da Hostinger -->
+  <a href="https://cart.hostinger.com/pay/d5f7978e-b403-4e51-9de8-17b6cd763983?_ga=GA1.3.942352702.1711283207" 
+     target="_blank"
+     style="margin: 0 10px;">
+     
+    <img src="/img/hostinger.jpeg" 
+         alt="Banner Hostinger" 
+         title="Seu site no lugar certo" 
+         width="73" 
+         height="48" 
+         class="redesign-image-modernized" 
+         style="border: none;">
+  </a>
+</div>
+<br>
+<br>
+<style>
+  .video-wrapper {
+    position: relative;
+    width: 265px;
+    height: 48px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .video-merch {
+    width: 100%;
+    height: 48px;
+    display: block;
+    border: none;
+  }
+</style>
+    <!-- CSS para Responsividade -->
+<style>
+    .campo-caixa {
+        background-color: #007bff; /* Mantém a cor azul */
+        border-radius: 5px;
+        padding: 15px;
+        font-size: 30px; /* Ajuste o tamanho da fonte para mobile */
+        text-align: center;
+        color: white;
+        margin-bottom: 20px; /* Espaçamento entre as caixas */
+        overflow: hidden;
+    }
+
+    .campo-caixa-usuario {
+        color: #000; /* Define a cor do texto dentro da caixa do usuário */
+        font-size: 30px; /* Ajusta o tamanho do texto */
+        padding: 10px; /* Ajusta o padding para manter a caixa uniforme */
+    }
+
+    @media (min-width: 992px) { /* Para desktop */
+        .campo-caixa {
+            font-size: 40px; /* Tamanho maior para desktop */
+            padding: 20px; /* Padding maior para desktop */
+        }
+        
+        .campo-caixa-usuario {
+            font-size: 30px; /* Mantém o tamanho do texto no desktop */
+        }
+    }
+</style>
+<script>
+    let ativado = false;
+
+    function narrarTexto(texto) {
+        if ('speechSynthesis' in window) {
+            const synth = window.speechSynthesis;
+            const voices = synth.getVoices();
+
+            // Tenta encontrar voz em português do Brasil
+            let voz = voices.find(v => v.lang === 'pt-BR') || voices.find(v => v.lang.startsWith('pt'));
+
+            const utterance = new SpeechSynthesisUtterance(texto);
+            utterance.lang = 'pt-BR';
+            utterance.rate = 0.95;
+            utterance.pitch = 1;
+            if (voz) utterance.voice = voz;
+
+            synth.speak(utterance);
+        } else {
+            console.warn("API de narração não suportada.");
+        }
+    }
+
+    function tocarAudio() {
+        const audio = document.getElementById('audioChamada');
+        if (audio) audio.play().catch(e => console.log('Áudio bloqueado:', e));
+    }
+
+    function narrarInformacoes() {
+        const nomeCliente = document.getElementById('nomeCliente')?.textContent?.trim();
+        const senhaGerada = document.getElementById('senhaGerada')?.textContent?.trim();
+        if (nomeCliente && senhaGerada) {
+            narrarTexto(`Senha gerada para ${nomeCliente}. Número ${senhaGerada}`);
+        }
+    }
+
+    function iniciarPainel() {
+        if (!ativado) {
+            ativado = true;
+            // Garante que as vozes estão carregadas
+            window.speechSynthesis.getVoices(); 
+            setTimeout(() => {
+                tocarAudio();
+                narrarInformacoes();
+            }, 300); // pequena espera para carregar vozes
+            setInterval(() => location.reload(), 25000);
+        }
+    }
+
+    // Espera interação do usuário para ativar
+    window.addEventListener('click', iniciarPainel);
+    window.addEventListener('touchstart', iniciarPainel);
+</script>
+
 </body>
 </html>
+
