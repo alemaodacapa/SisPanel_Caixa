@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['senha'])) {
                 <?php endif; ?>
 
                 <div class="form-group">
-                    <label for="senha"><i class="fas fa-lock"></i> Digite a senha:</label>
+                    <label for="senha"><i class="fas fa-lock"></i> Digite a senha "admincaixa":</label>
                     <input type="password" id="senha" name="senha" class="form-control" placeholder="••••••••" required>
                 </div>
 
@@ -122,51 +122,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['senha'])) {
     </div>
 <?php else: ?>
 
-    <div class="container mt-5">
-        <div class="text-center mb-4">
-            <h1>SisPainel Caixa - Operador</h1>
-        </div>
-
-        <div class="info-box">
-            <h3>Cadastro de Usuário</h3>
-            <form id="formCadastro">
-                <div class="form-group">
-                    <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label>Tipo de Senha:</label><br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="tipo_senha" id="normal" value="normal" checked>
-                        <label class="form-check-label" for="normal">Normal</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="tipo_senha" id="preferencial" value="preferencial">
-                        <label class="form-check-label" for="preferencial">Preferencial</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="senha">Senha:</label>
-                    <input type="text" id="senha" name="senha" class="form-control" readonly>
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-primary btn-large" onclick="gerarSenhaAleatoria()">Gerar Senha</button>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-6 mb-2">
-                        <button type="button" class="btn btn-success btn-large" onclick="cadastrarCliente()">Cadastrar</button>
-                    </div>
-                    <div class="col-md-6 mb-2">
-                        <a href="/relatorio.php" target="_blank" class="btn btn-info btn-large">Consultar Relatório</a>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-warning btn-large" onclick="atualizarPainel()">Atualizar Painel</button>
-                </div>
-            </form>
-            <div id="mensagem" class="alert mt-3" style="display: none;"></div>
-        </div>
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1>SisPainel Caixa - Operador</h1>
     </div>
+
+    <div class="info-box">
+        <h3>Cadastro de Usuário</h3>
+        <form id="formCadastro">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Tipo de Senha:</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="tipo_senha" id="normal" value="normal" checked>
+                    <label class="form-check-label" for="normal">Normal</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="tipo_senha" id="preferencial" value="preferencial">
+                    <label class="form-check-label" for="preferencial">Preferencial</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="text" id="senha" name="senha" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary btn-large" onclick="gerarSenhaAleatoria()">Gerar Senha</button>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 mb-2">
+                    <button type="button" class="btn btn-success btn-large" onclick="cadastrarCliente()">Cadastrar</button>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <a href="/relatorio.php" target="_blank" class="btn btn-info btn-large">Consultar Relatório</a>
+                </div>
+            </div>
+            <div class="form-group d-flex justify-content-between">
+                <button type="button" class="btn btn-warning btn-large" onclick="atualizarPainel()">Atualizar Painel</button>
+                &nbsp;&nbsp;<a href="https://go.hotmart.com/H95161997J" target="_blank" class="btn btn-danger btn-large">Comprar este painel</a>
+            </div>
+        </form>
+        <div id="mensagem" class="alert mt-3" style="display: none;"></div>
+    </div>
+</div>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
