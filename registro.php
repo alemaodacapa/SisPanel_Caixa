@@ -14,12 +14,14 @@ if (isset($_POST['senha']) && $_POST['senha'] === $senha_padrao) {
 if (!isset($_SESSION['acesso_permitido']) || $_SESSION['acesso_permitido'] !== true) {
     echo '<!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SisPainel Consultório - Login</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container" style="margin-top: 50px;">
         <div class="row justify-content-center">
@@ -27,7 +29,7 @@ if (!isset($_SESSION['acesso_permitido']) || $_SESSION['acesso_permitido'] !== t
                 <h3 class="text-center">Acesso Restrito</h3>
                 <form method="POST" action="">
                     <div class="form-group">
-                        <label for="senha">Senha: admincaixa</label>
+                        <label for="senha">Senha:</label>
                         <input type="password" id="senha" name="senha" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Acessar</button>
@@ -36,20 +38,28 @@ if (!isset($_SESSION['acesso_permitido']) || $_SESSION['acesso_permitido'] !== t
         </div>
     </div>
 </body>
+
 </html>';
     exit();
 }
 
 include 'conexao.php'; 
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            // Desativa o menu de contexto do botão direito
+            document.addEventListener('contextmenu', function(event) {
+                event.preventDefault();
+                alert("O botão direito está desativado nesta página.");
+            });
+        });
+    </script>
 <head>
     <meta charset="UTF-8">
-    <link href="/img/att.jpg" rel="icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SisPainel Admin - Operador</title>
+    <title>SisPainel Consultório - Operador</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -58,18 +68,32 @@ include 'conexao.php';
             margin: 0;
             padding: 0;
         }
+
         .container {
             margin-top: 20px;
         }
+
         .header {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .header h1 {
             font-size: 2em;
             font-weight: bold;
             color: #007bff;
         }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .btn-large {
+            font-size: 1.5em;
+            padding: 10px;
+            width: 100%;
+        }
+
         .info-box {
             background-color: #ffffff;
             padding: 15px;
@@ -77,13 +101,23 @@ include 'conexao.php';
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
-        .btn-large {
-            font-size: 1.5em;
-            padding: 10px;
-            width: 100%;
+
+        .info-box h3 {
+            margin-top: 0;
+        }
+
+        .radio-group {
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -119,12 +153,16 @@ include 'conexao.php';
                         <a href="/relatorio.php" target="_blank" class="btn btn-info btn-large">Consultar Relatório</a>
                     </div>
                 </div>
-                <div id="mensagem" class="alert" style="display: none;"></div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-warning btn-large" onclick="atualizarPainel()">Atualizar Painel</button>
+                </div>
             </form>
+            <div id="mensagem" class="alert" style="display: none;"></div>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         function gerarSenhaAleatoria() {
@@ -145,42 +183,23 @@ include 'conexao.php';
             var tipo_senha = $('input[name="tipo_senha"]:checked').val();
             var senha = $('#senha').val();
 
-            if (!nome || !tipo_senha || !senha) {
-                $('#mensagem').removeClass('alert-success').addClass('alert-danger').text('Todos os campos são obrigatórios.').show();
-                return;
-            }
-
             $.ajax({
                 type: 'POST',
                 url: 'processa_cadastro_usuarios.php',
                 data: { nome: nome, tipo_senha: tipo_senha, senha: senha },
                 success: function(response) {
-                    var jsonResponse = JSON.parse(response);
-                    if (jsonResponse.success) {
-                        $('#mensagem').removeClass('alert-danger').addClass('alert-success').text(jsonResponse.success).show();
-                    } else {
-                        $('#mensagem').removeClass('alert-success').addClass('alert-danger').text(jsonResponse.error).show();
-                    }
+                    $('#mensagem').removeClass('alert-danger').addClass('alert-success').text('Cadastro realizado com sucesso!').show();
                 },
                 error: function(xhr, status, error) {
                     $('#mensagem').removeClass('alert-success').addClass('alert-danger').text('Erro ao cadastrar o cliente: ' + error).show();
                 }
             });
         }
+
+        function atualizarPainel() {
+            window.open('/painel.php', '_blank');
+        }
     </script>
 </body>
+
 </html>
-<center>
-<script type="text/javascript">
-	function importHotmart(){ 
- 		var imported = document.createElement('script'); 
- 		imported.src = 'https://static.hotmart.com/checkout/widget.min.js'; 
- 		document.head.appendChild(imported); 
-		var link = document.createElement('link'); 
-		link.rel = 'stylesheet'; 
-		link.type = 'text/css'; 
-		link.href = 'https://static.hotmart.com/css/hotmart-fb.min.css'; 
-		document.head.appendChild(link);	} 
- 	importHotmart(); 
- </script> 
- <a onclick="return false;" href="https://pay.hotmart.com/H95161997J?checkoutMode=2" class="hotmart-fb hotmart__button-checkout"><img src='https://static.hotmart.com/img/btn-buy-green.png'></a> 
