@@ -64,301 +64,160 @@ try {
 // Fechar a conexão
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <!-- Favicon -->
-    <link href="/img/att.jpg" rel="icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Gerenciador de Filas, Painel de Atendimento, Gestão de Senhas, Senhas Preferenciais, Senhas Normais, Caixa de Atendimento, Atualização Automática, Narração de Senhas, Som de Notificação, Painel Administrativo, Relatório de Atendimento, Senhas Automáticas, Sistema de Fila Única, Interface de Atendimento, Sistema de Senhas Online, Gestão de Clientes, Atendimento ao Cliente, Acessibilidade no Atendimento, Senhas Eletrônicas, Solução de Filas"/>
-    <meta property="og:description" content="Sis Panel - Gerenciador de Filas Online"/>
-    <meta property="og:image" content="https://caixa.e-painel.x10.mx/img/banner.jpg" />
+    <meta name="keywords" content="Gerenciador de Filas, Painel de Atendimento, Gestão de Senhas, Senhas Preferenciais, Senhas Normais, Caixa de Atendimento">
     <meta name="robots" content="index,follow">
     <title>Sis Panel - Gerenciador de Filas Online</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="public/images/favicon-48x48.png" sizes="48x48" />
-    <link rel="apple-touch-icon" sizes="180x180" href="public/images/apple-touch-icon.png" />
-
-    <!-- Google Fonts Preloader -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
-
-    <!-- CSS -->
+    <link rel="icon" href="/img/att.jpg">
     <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style2.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
         body {
-            background-color: #f7f9fc;
-            color: #333;
-            font-family: 'Inter', sans-serif;
             margin: 0;
-            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .barraSuperior {
-            background-color: #1d1f21;
-            padding: 20px;
+            background-color: #1877f2;
             color: white;
+            padding: 15px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-        }
-
-        .uespiLogo {
-            height: 60px;
-        }
-
-        .uespiTexto {
+            justify-content: center;
             font-size: 24px;
             font-weight: bold;
         }
 
-        .subtitulo {
-            font-size: 16px;
-            font-style: italic;
-        }
-
-        .container.page {
+        .container {
+            flex: 1;
             padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .campo-caixa {
-            background-color: #007bff;
-            border-radius: 15px;
-            padding: 30px;
-            font-size: 28px;
+        .caixa {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            min-width: 300px;
+            max-width: 400px;
             text-align: center;
-            color: white;
-            margin-bottom: 20px;
-            transition: transform 0.3s;
+            animation: fadeInUp 0.5s ease-out;
         }
 
-        .campo-caixa:hover {
-            transform: scale(1.05); /* Aumenta o tamanho ao passar o mouse */
+        .caixa:hover {
+            transform: scale(1.05);
+            transition: 0.3s;
         }
 
-        .campo-caixa-usuario {
-            background-color: #ffc107;
-            color: #000;
-            font-size: 28px;
-            padding: 20px;
+        .caixa-titulo {
+            font-size: 20px;
             font-weight: bold;
-            border-radius: 15px;
+            margin-bottom: 10px;
         }
 
-        .row {
-            margin-left: 0;
-            margin-right: 0;
-        }
-
-        /* Design responsivo */
-        @media (max-width: 768px) {
-            .campo-caixa {
-                font-size: 24px;
-                padding: 20px;
-            }
-
-            .campo-caixa-usuario {
-                font-size: 20px;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .campo-caixa {
-                font-size: 32px;
-                padding: 35px;
-            }
-
-            .campo-caixa-usuario {
-                font-size: 26px;
-            }
+        .numero {
+            font-size: 36px;
+            font-weight: bold;
         }
 
         .footer {
-            background-color: #343a40;
+            background-color: #1877f2;
             color: white;
             text-align: center;
             padding: 15px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
         }
 
-        .footer a {
-            color: #ffc107;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Anúncios */
-        .anuncio-content {
-            background-color: #28a745;
-            color: white;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            margin: 20px 0; /* Adiciona margem superior e inferior */
-        }
-
-        .anuncio-content button {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-
-        .anuncio-content button:hover {
-            background-color: #c82333;
-        }
-
-        /* Caixa de Narrador */
-        .narrador-box {
-            background-color: #6f42c1;
-            color: white;
-            padding: 15px;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 20px;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
+
     <div class="barraSuperior">
-        <img src="img/att.jpg" class="uespiLogo" alt="Logo">
-        <div>
-            <span class="uespiTexto">ATENDIMENTO</span><br>
-            <span class="subtitulo">Chamada <strong>por Senha</strong></span>
+        ATENDIMENTO - CHAMADA POR SENHA
+    </div>
+
+    <div class="container">
+        <div class="caixa">
+            <div class="caixa-titulo">CAIXA</div>
+            <div id="tipoSenha"><strong><?php echo strtoupper($cliente['tipo_senha']); ?></strong></div>
+        </div>
+        <div class="caixa">
+            <div class="caixa-titulo">ANTERIORES</div>
+            <div id="senhaAnterior" class="numero"><strong><?php echo $senha_anterior; ?></strong></div>
+        </div>
+        <div class="caixa">
+            <div class="caixa-titulo">USUÁRIO</div>
+            <div id="nomeCliente"><strong><?php echo $cliente['nome']; ?></strong></div>
+            <div id="senhaGerada" class="numero"><strong><?php echo $cliente['senha_gerada']; ?></strong></div>
         </div>
     </div>
 
-    <div class="container page">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="campo-caixa">
-                    <div><strong>CAIXA</strong></div>
-                    <div><strong id="tipoSenha"><?php echo strtoupper($cliente['tipo_senha']); ?></strong></div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="campo-caixa">
-                    <div><strong>ANTERIORES</strong></div>
-                    <div id="senhaAnterior"><?php echo $senha_anterior; ?></div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="campo-caixa">
-                    <div><strong>USUÁRIO</strong></div>
-                    <div class="campo-caixa-usuario">
-                        <span id="nomeCliente"><?php echo $cliente['nome']; ?></span><br>
-                        <div id="info">
-                            <span id="senhaGerada" style="font-size: 44px; font-weight: bold;">
-                                <?php echo $cliente['senha_gerada']; ?>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <audio id="audioChamada" src="audio/chamada.wav"></audio>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="narrador-box">
-                    <strong>NARRADOR</strong>
-                    <div id="narracao">
-                        <span id="narracaoTexto">Aguarde, sua senha será chamada em breve.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Anúncio para Desktop -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="anuncio-content">
-                    <strong>ANÚNCIO</strong>
-                    <div class="video-container">
-                        <video id="seoVideoDesktop" width="100%" autoplay loop muted>
-                            <source src="video/SEO_Summerside.mp4" type="video/mp4">
-                            Seu navegador não suporta vídeo HTML5.
-                        </video>
-                    </div>
-                    <a href="https://painelsummerside.com.br" class="botao-visitar-desktop" style="color: white">Visitar o Site</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Anúncio para Mobile -->
-        <div class="row d-md-none">
-            <div class="col-md-12">
-                <div class="anuncio-content" style="display: none;">
-                    <button id="fecharAnuncio">X</button>
-                    <strong>ANÚNCIO</strong>
-                    <div class="video-container">
-                        <video id="seoVideoMobile" width="100%" autoplay loop muted>
-                            <source src="video/SEO_Summerside.mp4" type="video/mp4">
-                            Seu navegador não suporta vídeo HTML5.
-                        </video>
-                    </div>
-                    <a href="https://painelsummerside.com.br" class="botao-visitar" style="color: white">Visitar o Site</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <script src="lib/jquery-3.3.1.min.js"></script>
     <script>
-        // Função para tocar o áudio
         function tocarAudio() {
-            const audio = new Audio('path/to/audio/file.mp3'); // Substitua pelo caminho do seu áudio
-            audio.play().catch((error) => {
-                console.error("Erro ao tocar áudio: ", error);
+            const audio = document.getElementById('audioChamada');
+            audio.currentTime = 0;
+            audio.play().catch(e => console.error('Erro ao tocar o áudio:', e));
+        }
+
+        function narrarTexto(texto) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(texto);
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        function atualizarDados() {
+            $.get('consultar_cliente.php', function(data) {
+                const cliente = JSON.parse(data);
+                $('#nomeCliente').text(cliente.nome);
+                $('#senhaGerada').text(cliente.senha_gerada);
+                $('#tipoSenha').text(cliente.tipo_senha.toUpperCase());
+                $('#senhaAnterior').text(cliente.senha_anterior);
+                tocarAudio();
+                narrarTexto(`Senha ${cliente.senha_gerada}, ${cliente.nome}`);
             });
         }
 
-        // Função para buscar dados do cliente
-        function buscarDadosCliente() {
-            $.ajax({
-                url: 'http://seu_backend/api/dados_cliente',
-                method: 'GET',
-                success: function(cliente) {
-                    document.getElementById('nomeCliente').textContent = cliente.nome;
-                    document.getElementById('senhaGerada').textContent = cliente.senha_gerada;
-                    document.getElementById('tipoSenha').textContent = cliente.tipo_senha.toUpperCase();
-                    document.getElementById('senhaAnterior').textContent = cliente.senha_anterior;
-
-                    // Atualiza a narração
-                    const narracaoTexto = `Chamada a senha ${cliente.senha_gerada}, por favor, dirija-se ao caixa.`;
-                    document.getElementById('narracaoTexto').textContent = narracaoTexto;
-
-                    // Toca o áudio quando novos dados forem recebidos
-                    tocarAudio();
-                }
-            });
-        }
-
-        // Chamada para buscar dados a cada 5 segundos
-        setInterval(buscarDadosCliente, 5000);
-
-        // Mostrar ou esconder o anúncio em mobile após 10 segundos
-        setTimeout(() => {
-            document.querySelector('.anuncio-content').style.display = 'block';
-        }, 10000);
-
-        document.getElementById('fecharAnuncio').addEventListener('click', function() {
-            document.querySelector('.anuncio-content').style.display = 'none';
+        $(document).ready(function() {
+            atualizarDados();
+            setInterval(atualizarDados, 10000);
         });
     </script>
 
     <footer class="footer">
-        <p>© 2024 Sis Panel. Todos os direitos reservados. | <a href="https://social.x10.mx">Social Media</a></p>
+        <p>&copy; 2024 Sis Panel - Todos os direitos reservados.</p>
     </footer>
+
 </body>
 </html>
+
