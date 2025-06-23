@@ -18,7 +18,7 @@ if (!isset($_SESSION['acesso_permitido']) || $_SESSION['acesso_permitido'] !== t
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SisPainel Consultório - Login</title>
+    <title>SisPainel Caixa - Login</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -29,7 +29,7 @@ if (!isset($_SESSION['acesso_permitido']) || $_SESSION['acesso_permitido'] !== t
                 <h3 class="text-center">Acesso Restrito</h3>
                 <form method="POST" action="">
                     <div class="form-group">
-                        <label for="senha">Senha:</label>
+                        <label for="senha">Senha: admincaixa</label>
                         <input type="password" id="senha" name="senha" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Acessar</button>
@@ -121,7 +121,7 @@ include 'conexao.php';
 <body>
     <div class="container">
         <div class="header">
-            <h1>SisPainel Consultório - Operador</h1>
+            <h1>SisPainel Caixa - Operador</h1>
         </div>
 
         <div class="info-box">
