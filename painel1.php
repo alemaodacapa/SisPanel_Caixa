@@ -67,219 +67,192 @@ $conn->close();
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Atendimento</title>
-    <!-- CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style5.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sis Panel - Gerenciador de Filas Online</title>
+  <link rel="icon" href="/img/att.jpg">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="lib/jquery-3.3.1.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/inject.js"></script>
+  <script src="js/funcoes_painel.js"></script>
+  <script src="js/painel.js"></script>
+  <style>
+    body {
+      background-color: #ffffff;
+      color: #333;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-    <!-- JS -->
-    <script src="lib/jquery-3.3.1.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/funcoes_painel.js"></script>
-    <script src="server.js"></script>
-    <style>
-        /* Estilos gerais */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-        }
+    .barraSuperior {
+      background-color: #0056b3;
+      padding: 15px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
 
-        body {
-            background: linear-gradient(135deg, #007bff, #5a5aff);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            align-items: center;
-            transition: background-color 0.5s;
-        }
+    .barraSuperior img {
+      height: 60px;
+    }
 
-        /* Barra superior */
-        .barraSuperior {
-            background-color: #003a5f;
-            color: #fff;
-            padding: 20px;
-            font-size: 2.5rem;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            width: 100%;
-            border-bottom: 5px solid #007bff;
-        }
+    .titulo-texto {
+      flex: 1;
+      text-align: center;
+    }
 
-        /* Container principal */
-        .container {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Alinha 3 colunas */
-            gap: 20px;
-            padding: 20px;
-            width: 100%;
-            max-width: 1200px;
-        }
+    .titulo-texto span {
+      display: block;
+      font-size: 20px;
+      font-weight: bold;
+    }
 
-        /* Estilo da caixa */
-        .caixa {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            position: relative;
-            transition: transform 0.3s, box-shadow 0.3s;
-            min-height: 150px; /* Altura mínima para alinhamento */
-        }
+    .titulo-texto .subtitulo {
+      font-size: 14px;
+      font-weight: normal;
+    }
 
-        .caixa:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        }
+    .info-link {
+      color: #ffff00;
+      text-decoration: none;
+    }
 
-        .caixa-titulo {
-            font-weight: bold;
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            color: #007bff;
-            text-align: center;
-        }
+    .container.page {
+      flex: 1;
+      padding: 20px;
+    }
 
-        /* Estilo do vídeo */
-        .video-container {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            border-radius: 10px;
-        }
+    .campo-caixa, .caixa-anterior {
+      background-color: #007bff;
+      border-radius: 8px;
+      padding: 20px;
+      font-size: 28px;
+      text-align: center;
+      color: white;
+      margin-bottom: 20px;
+    }
 
-        .video-container video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-        }
+    .campo-caixa-usuario {
+      background-color: #ffff00;
+      color: #000;
+      font-size: 28px;
+      padding: 20px;
+      font-weight: bold;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
 
-        /* Botão Visitar o Site */
-        .botao-visitar {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 20px;
-            background-color: rgba(0, 123, 255, 0.8);
-            color: #fff;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s, transform 0.2s;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
+    .footer {
+      background-color: #0056b3;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 13px;
+    }
 
-        .botao-visitar:hover {
-            background-color: rgba(0, 86, 179, 0.8);
-            transform: scale(1.05);
-        }
+    .footer a {
+      color: #ffff00;
+      text-decoration: none;
+    }
 
-        /* Rodapé */
-        .footer {
-            width: 100%;
-            background-color: #1a1a1d;
-            color: #c9c9c9;
-            padding: 15px;
-            text-align: center;
-            font-size: 1.2rem;
-            margin-top: auto;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-        }
+    .footer a:hover {
+      text-decoration: underline;
+    }
 
-        /* Estilo para data e hora */
-        .data-hora {
-            font-size: 1.5rem;
-            color: #fff;
-            margin-bottom: 5px;
-            text-align: center;
-        }
+    @media (max-width: 767px) {
+      .campo-caixa, .caixa-anterior, .campo-caixa-usuario {
+        font-size: 22px;
+        padding: 15px;
+      }
 
-        /* Responsividade */
-        @media (max-width: 600px) {
-            .container {
-                grid-template-columns: 1fr; /* 1 coluna em dispositivos pequenos */
-                align-items: center;
-                padding: 10px;
-            }
-
-            .caixa {
-                width: 100%;
-                max-width: 200px;
-                margin: 10px 0;
-            }
-
-            .video-container {
-                height: auto;
-            }
-        }
-
-        @media (min-width: 600px) {
-            .video-container {
-                height: 250px;
-            }
-        }
-    </style>
-
+      .titulo-texto span {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header class="barraSuperior">
-        ATENDIMENTO - CHAMADA POR SENHA
-    </header>
+  <div class="barraSuperior">
+    <img src="img/att.jpg" alt="Logo">
+    <div class="titulo-texto">
+      <span>ATENDIMENTO</span>
+      <span class="subtitulo">Chamada por Senha</span>
+    </div>
+    <a href="https://social.x10.mx" class="info-link">
+      <i class="fa fa-info-circle"></i>
+    </a>
+  </div>
 
-    <main class="container">
-        <div class="caixa">
-            <div class="caixa-titulo">USUÁRIO</div>
-            <h3><strong id="nomeCliente"><?php echo $cliente['nome']; ?></strong></h3>
-            <h2><strong id="senhaGerada" class="numero"><?php echo $cliente['senha_gerada']; ?></strong></h2>
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="campo-caixa">
+          <strong>CAIXA</strong>
+          <div id="tipoSenha"><?php echo strtoupper($cliente['tipo_senha']); ?></div>
         </div>
-        <div class="caixa">
-            <div class="caixa-titulo">ANTERIORES</div>
-            <h2><strong id="senhaAnterior" class="numero"><?php echo $senha_anterior; ?></strong></h2>
+      </div>
+      <div class="col-md-6">
+        <div class="caixa-anterior">
+          <strong>ANTERIORES</strong>
+          <div id="senhaAnterior"><?php echo $senha_anterior; ?></div>
         </div>
-        <div class="caixa">
-            <div class="caixa-titulo">TIPO DE SENHA</div>
-            <h3><strong id="tipoSenha"><?php echo $cliente['tipo_senha']; ?></strong></h3>
-        </div>
-        <div class="caixa">
-            <div class="caixa-titulo">SENHAS EM ESPERA</div>
-            <h3><strong id="senhasEmEspera">5</strong></h3>
-        </div>
-        <div class="caixa">
-            <div class="caixa-titulo">ATENDIMENTO EM ANDAMENTO</div>
-            <h3><strong id="atendimentoEmAndamento">2</strong></h3>
-        </div>
-    </main>
+      </div>
+    </div>
 
-    <footer class="footer">
-        <div class="video-container">
-            <video autoplay muted loop>
-                <source src="SEO_Summerside.mp4" type="video/mp4">
-                Seu navegador não suporta o elemento de vídeo.
-            </video>
-            <a href="#" class="botao-visitar">Visitar o Site</a>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="campo-caixa">
+          <strong>USUÁRIO</strong>
+          <div class="campo-caixa-usuario">
+            <span id="nomeCliente"><?php echo $cliente['nome']; ?></span><br>
+            <span id="senhaGerada"><?php echo $cliente['senha_gerada']; ?></span>
+          </div>
         </div>
-        <div class="data-hora" id="dataHora"></div>
-    </footer>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audioChamada" src="audio/chamada.wav"></audio>
 
     <script>
-        // Função para atualizar a data e hora em tempo real
-        function atualizarDataHora() {
-            const agora = new Date();
-            const dataHora = agora.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
-            document.getElementById('dataHora').innerText = dataHora;
+        function tocarAudio() {
+            const audio = document.getElementById('audioChamada');
+            audio.play();
         }
-        setInterval(atualizarDataHora, 1000);
+
+        function narrarTexto(texto) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(texto);
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        function narrarInformacoes() {
+            const nomeCliente = document.getElementById('nomeCliente').textContent;
+            const senhaGerada = document.getElementById('senhaGerada').textContent;
+            narrarTexto(`Senha gerada para ${nomeCliente} é ${senhaGerada}`);
+        }
+
+        window.onload = function() {
+            tocarAudio();
+            narrarInformacoes();
+            setInterval(function() {
+                location.reload();
+            }, 25000);
+        };
     </script>
+
+  <footer class="footer">
+    <p>&copy; 2024 Sis Panel. Todos os direitos reservados. | <a href="https://social.x10.mx">Social Media</a></p>
+  </footer>
 </body>
 </html>
