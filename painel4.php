@@ -64,6 +64,7 @@ try {
 // Fechar a conexão
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -76,45 +77,50 @@ $conn->close();
     <meta property="og:image" content="https://caixa.e-painel.x10.mx/img/banner.jpg" />
     <meta name="robots" content="index,follow">
     <title>Sis Panel - Gerenciador de Filas Online</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="public/images/favicon-48x48.png" sizes="48x48" />
+    <link rel="apple-touch-icon" sizes="180x180" href="public/images/apple-touch-icon.png" />
+
+    <!-- Google Fonts Preloader -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+
+    <!-- CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <script src="lib/jquery-3.3.1.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/inject.js"></script>
-    <script src="js/funcoes_painel.js"></script>
-    <script src="js/painel.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
+
     <style>
         body {
-            background-color: #e9ecef;
+            background-color: #e9eff0; /* Fundo mais claro */
             color: #333;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
         }
 
         .barraSuperior {
-            background-color: #6c757d;
-            padding: 20px;
+            background-color: #1877f2; /* Azul do Facebook */
+            padding: 10px 20px; /* Menos padding */
             color: white;
-            height: 200px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            border-radius: 8px; /* Bordas arredondadas */
         }
 
         .uespiLogo {
-            height: 80px;
-            margin-right: 20px;
+            height: 40px; /* Menor logo */
         }
 
         .uespiTexto {
-            font-size: 28px;
+            font-size: 20px; /* Menor tamanho do texto */
             font-weight: bold;
         }
 
         .subtitulo {
-            font-size: 18px;
+            font-size: 14px; /* Menor subtítulo */
             font-style: italic;
         }
 
@@ -123,10 +129,10 @@ $conn->close();
         }
 
         .campo-caixa {
-            background-color: #17a2b8;
+            background-color: #4b4f54; /* Cor de fundo das caixas */
             border-radius: 15px;
-            padding: 30px;
-            font-size: 32px;
+            padding: 25px; /* Ajuste no padding */
+            font-size: 28px;
             text-align: center;
             color: white;
             margin-bottom: 20px;
@@ -138,9 +144,9 @@ $conn->close();
         }
 
         .campo-caixa-usuario {
-            background-color: #ffc107;
+            background-color: #ffc107; /* Cor da caixa do usuário */
             color: #000;
-            font-size: 32px;
+            font-size: 28px;
             padding: 20px;
             font-weight: bold;
             border-radius: 15px;
@@ -154,23 +160,23 @@ $conn->close();
         /* Design responsivo */
         @media (max-width: 768px) {
             .campo-caixa {
-                font-size: 26px;
+                font-size: 24px;
                 padding: 20px;
             }
 
             .campo-caixa-usuario {
-                font-size: 24px;
+                font-size: 20px;
             }
         }
 
         @media (min-width: 769px) {
             .campo-caixa {
-                font-size: 36px;
-                padding: 35px;
+                font-size: 32px;
+                padding: 30px;
             }
 
             .campo-caixa-usuario {
-                font-size: 30px;
+                font-size: 26px;
             }
         }
 
@@ -195,16 +201,16 @@ $conn->close();
 
         /* Anúncios */
         .anuncio-content {
-            background-color: #28a745;
+            background-color: #28a745; /* Verde para o anúncio */
             color: white;
             border-radius: 15px;
             padding: 20px;
             text-align: center;
-            margin-top: 20px; /* Adiciona margem superior */
+            margin: 20px 0; /* Adiciona margem superior e inferior */
         }
 
         .anuncio-content button {
-            background-color: #dc3545;
+            background-color: #dc3545; /* Vermelho para o botão */
             color: white;
             border: none;
             border-radius: 5px;
@@ -218,7 +224,7 @@ $conn->close();
 
         /* Caixa de Narrador */
         .narrador-box {
-            background-color: #6f42c1;
+            background-color: #6f42c1; /* Cor do narrador */
             color: white;
             padding: 15px;
             border-radius: 15px;
@@ -228,14 +234,12 @@ $conn->close();
     </style>
 </head>
 <body>
+<body>
     <div class="barraSuperior">
         <img src="img/att.jpg" class="uespiLogo" alt="Logo">
         <div>
-            <span class="uespiTexto">ATENDIMENTO</span><br>
-            <span class="subtitulo">Chamada <strong>por Senha</strong></span>
-            <a href="https://social.x10.mx" class="info-link">
-                <i class="fa fa-info-circle"></i> Info
-            </a>
+            <div class="uespiTexto">ATENDIMENTO</div>
+            <div class="subtitulo">Chamada por Senha</div>
         </div>
     </div>
 
@@ -243,88 +247,29 @@ $conn->close();
         <div class="row">
             <div class="col-md-6">
                 <div class="campo-caixa">
-                    <div><strong>CAIXA</strong></div>
-                    <div><strong id="tipoSenha"><?php echo strtoupper($cliente['tipo_senha']); ?></strong></div>
+                    <strong>CAIXA</strong>
+                    <div id="tipoSenha"><?php echo strtoupper($cliente['tipo_senha']); ?></div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="campo-caixa">
-                    <div><strong>ANTERIORES</strong></div>
+                    <strong>ANTERIORES</strong>
                     <div id="senhaAnterior"><?php echo $senha_anterior; ?></div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="campo-caixa">
-                    <div><strong>USUÁRIO</strong></div>
+                    <strong>USUÁRIO</strong>
                     <div class="campo-caixa-usuario">
                         <span id="nomeCliente"><?php echo $cliente['nome']; ?></span><br>
-                        <div id="info">
-                            <span id="senhaGerada" style="font-size: 44px; font-weight: bold;">
-                                <?php echo $cliente['senha_gerada']; ?>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Caixa do Narrador -->
-            <div class="col-md-6">
-                <div class="narrador-box">
-                    <strong>NARRADOR</strong>
-                    <div id="narracao">
-                        <span id="narracaoTexto">Aguarde, sua senha será chamada em breve.</span>
+                        <span id="senhaGerada"><?php echo $cliente['senha_gerada']; ?></span>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Anúncio para Desktop -->
-        <div class="col-md-6 d-none d-md-block">
-            <div class="anuncio-content">
-                <strong>ANÚNCIO</strong>
-                <div class="video-container">
-                    <video id="seoVideoDesktop" width="100%" autoplay loop muted>
-                        <source src="video/SEO_Summerside.mp4" type="video/mp4">
-                        Seu navegador não suporta vídeo HTML5.
-                    </video>
-                </div>
-                <a href="https://painelsummerside.com.br" class="botao-visitar-desktop" style="color: white">Visitar o Site</a>
-            </div>
-        </div>
-
-        <!-- Anúncio para Mobile -->
-        <div class="col-md-6 d-md-none">
-            <div class="anuncio-content" style="display: none;">
-                <button id="fecharAnuncio">X</button>
-                <div>
-                    <strong>ANÚNCIO</strong>
-                    <div class="video-container">
-                        <video id="seoVideoMobile" width="100%" autoplay loop muted>
-                            <source src="video/SEO_Summerside.mp4" type="video/mp4">
-                            Seu navegador não suporta vídeo HTML5.
-                        </video>
+    </div>
                     </div>
                     <a href="https://painelsummerside.com.br" class="botao-visitar" style="color: white">Visitar o Site</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Seção de anúncios agora abaixo da caixa de narrador -->
-        <div class="row">
-            <div class="col-12">
-                <div class="anuncio-content" style="display: none;">
-                    <button id="fecharAnuncio">X</button>
-                    <strong>ANÚNCIO</strong>
-                    <div class="video-container">
-                        <video id="seoVideoDesktop" width="100%" autoplay loop muted>
-                            <source src="video/SEO_Summerside.mp4" type="video/mp4">
-                            Seu navegador não suporta vídeo HTML5.
-                        </video>
-                    </div>
-                    <a href="https://painelsummerside.com.br" class="botao-visitar-desktop" style="color: white">Visitar o Site</a>
                 </div>
             </div>
         </div>
@@ -334,17 +279,14 @@ $conn->close();
         // Função para tocar o áudio
         function tocarAudio() {
             const audio = new Audio('path/to/audio/file.mp3'); // Substitua pelo caminho do seu áudio
-            audio.play().catch((error) => {
-                console.error("Erro ao tocar áudio: ", error);
-            });
+            audio.play().catch(e => console.log(e));
         }
 
         // Função para buscar dados do cliente
         function buscarDadosCliente() {
-            $.ajax({
-                url: 'http://seu_backend/api/dados_cliente',
-                method: 'GET',
-                success: function(cliente) {
+            fetch('https://api.exemplo.com/dados') // Altere para a URL da sua API
+                .then(response => response.json())
+                .then(cliente => {
                     document.getElementById('nomeCliente').textContent = cliente.nome;
                     document.getElementById('senhaGerada').textContent = cliente.senha_gerada;
                     document.getElementById('tipoSenha').textContent = cliente.tipo_senha.toUpperCase();
@@ -356,8 +298,7 @@ $conn->close();
 
                     // Toca o áudio quando novos dados forem recebidos
                     tocarAudio();
-                }
-            });
+                });
         }
 
         // Chamada para buscar dados a cada 5 segundos
@@ -372,7 +313,7 @@ $conn->close();
             document.querySelector('.anuncio-content').style.display = 'none';
         });
     </script>
-    
+
     <footer class="footer">
         <p>© 2024 Sis Panel. Todos os direitos reservados. | <a href="https://social.x10.mx">Social Media</a></p>
     </footer>
